@@ -11,6 +11,6 @@
     <string name="password_label">Password:</string>
     <string name="password_text">password</string>
 
-    <string name="login_underButton_text"><u>Зарегистрироваться</u></string>
-    <string name="signup_underButton_text"><u>Войти</u></string>
+    <string name="login_underButton_text"><u>У меня еше нет аккаунта</u></string>
+    <string name="signup_underButton_text"><u>Уже есть аккаунт</u></string>
 </resources>
