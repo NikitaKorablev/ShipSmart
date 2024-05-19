@@ -9,19 +9,25 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import com.example.shipsmart.dbLogic.MainDB
-import com.example.shipsmart.dbLogic.User
+import androidx.lifecycle.lifecycleScope
+import com.example.shipsmart.dbLogic.AuthorisationDB
+import com.example.shipsmart.dbLogic.SupabaseUser
+import io.ktor.utils.io.errors.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var emailInput: EditText
     private lateinit var passwordInput: EditText
-    private lateinit var db: MainDB
+//    private lateinit var db: MainDB
+    private var authorisationDB: AuthorisationDB = AuthorisationDB()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
-        this.db = MainDB.getDB(this)
+//        this.db = MainDB.getDB(this)
         supportActionBar?.hide() // what is it?
 
         Log.d(SIGNUP_WINDOW, "signup_window start")
@@ -52,21 +58,40 @@ class SignUpActivity : AppCompatActivity() {
         val email = emailInput.text.toString()
         val password = passwordInput.text.toString()
 
-        if (email != "" && password != "") {
-            Thread{
-                val user = User(null,
-                    email,
-                    password
-                )
+        if (email.isNotEmpty() && password.isNotEmpty()) {
+            lifecycleScope.launch {
+                val user = SupabaseUser(email=email, password=password)
+
                 try {
-                    db.dao().insetUser(user)
-                    Log.d(TAG, db.dao().getAllUsers().toString())
-                    createToast("Пользователь создан!")
-                } catch(err: Exception) {
-                    createToast("Ошибка создания пользователя!")
-                    Log.e(TAG, err.message.toString())
+                    withContext(Dispatchers.IO) {
+                        try {
+                            authorisationDB.newUser(user)
+                            createToast("Successfully created user")
+                        } catch (e: IOException) {
+                            createToast(e.message.toString())
+                        } catch(e: Exception) {
+                            throw e
+                        }
+                    }
+                } catch (e: Exception) {
+                    createToast(e.message.toString())
                 }
-            }.start()
+            }
+
+//            Thread{
+//                val user = AndroidUser(null,
+//                    email,
+//                    password
+//                )
+//                try {
+//                    db.dao().insetUser(user)
+//                    Log.d(TAG, db.dao().getAllUsers().toString())
+//                    createToast("Пользователь создан!")
+//                } catch(err: Exception) {
+//                    createToast("Ошибка создания пользователя!")
+//                    Log.e(TAG, err.message.toString())
+//                }
+//            }.start()
         }
     }
 

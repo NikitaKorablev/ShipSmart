@@ -8,7 +8,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database (
-    entities = [User::class],
+    entities = [AndroidUser::class],
     version = 1
 //    autoMigrations = [
 //        AutoMigration(from = 1, to = 2)

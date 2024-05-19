@@ -38,6 +38,7 @@ obj/
 
 *.iml
 .gradle
+.env
 /local.properties
 /.idea/workspace.xml
 /.idea/libraries

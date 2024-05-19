@@ -7,11 +7,11 @@ import androidx.room.Query
 @Dao
 interface Dao {
     @Insert
-    fun insetUser(user: User)
+    fun insetUser(user: AndroidUser)
 
     @Query("SELECT * FROM users")
-    fun getAllUsers(): List<User>
+    fun getAllUsers(): List<AndroidUser>
 
     @Query("SELECT * FROM users WHERE Email = :email")
-    fun getUser(email: String): User
+    fun getUser(email: String): AndroidUser
 }
