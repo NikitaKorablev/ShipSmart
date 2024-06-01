@@ -1,4 +1,4 @@
-package com.example.shipsmart
+package com.shipsmart
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,8 +10,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import com.example.shipsmart.dbLogic.AuthorisationDB
-import com.example.shipsmart.dbLogic.SupabaseUser
+import com.shipsmart.dbLogic.SupabaseDAO
+import com.shipsmart.dbLogic.SupabaseUser
 import io.ktor.utils.io.errors.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,14 +21,14 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var emailInput: EditText
     private lateinit var passwordInput: EditText
 //    private lateinit var db: MainDB
-    private var authorisationDB: AuthorisationDB = AuthorisationDB()
+    private var authorisationDB: SupabaseDAO = SupabaseDAO()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
 //        this.db = MainDB.getDB(this)
-        supportActionBar?.hide() // what is it?
+        supportActionBar?.hide()
 
         Log.d(SIGNUP_WINDOW, "signup_window start")
         this.emailInput = findViewById(R.id.EmailAddress)

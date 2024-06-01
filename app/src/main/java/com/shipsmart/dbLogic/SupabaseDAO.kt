@@ -1,5 +1,6 @@
-package com.example.shipsmart.dbLogic
+package com.shipsmart.dbLogic
 
+import androidx.room.Dao
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
@@ -9,7 +10,7 @@ import io.ktor.utils.io.errors.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class AuthorisationDB {
+class SupabaseDAO {
     private var supabase: SupabaseClient = createSupabaseClient(
         supabaseUrl = "https://cquvqmwqlyqlntovmele.supabase.co",
         supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNxdXZxbXdxbHlxbG50b3ZtZWxlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTYwMjEyMjksImV4cCI6MjAzMTU5NzIyOX0.DQ-YAQZjXUj6o88VLI2zpg3pLMj4NtDhhAMs_RNvHEw"
@@ -19,9 +20,8 @@ class AuthorisationDB {
 
     // suspend - асинхронно выполняемая функция
     suspend fun getUser(email: String): SupabaseUser? = withContext(Dispatchers.IO) {
-//        val u = User_type2(name = "AndroidUser", email = "email", password = "password")
-//        supabase.from("Users").insert(u)
-        val user = supabase.from(table = "Users").select(columns = Columns.list("email", "password")) {
+        val user = supabase.from(table = "Users")
+            .select(columns = Columns.list("email", "password")) {
             filter {
                 SupabaseUser::email eq email
             }
@@ -30,9 +30,7 @@ class AuthorisationDB {
     }
 
     suspend fun newUser(user: SupabaseUser) {
-        val u = getUser(user.email)
-
-        if (u == null) supabase.from("Users").insert(user)
+        if (getUser(user.email) == null) supabase.from("Users").insert(user)
         else throw IOException("This user already exists")
     }
 }

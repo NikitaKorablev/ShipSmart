@@ -1,4 +1,4 @@
-package com.example.shipsmart
+package com.shipsmart
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,8 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.shipsmart.dbLogic.MainDB
-import com.example.shipsmart.dbLogic.AuthorisationDB
+import com.shipsmart.dbLogic.SupabaseDAO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var emailInput: EditText
     private lateinit var passwordInput: EditText
 //    private lateinit var db: MainDB
-    private var authorisationDB: AuthorisationDB = AuthorisationDB()
+    private var authorisationDB: SupabaseDAO = SupabaseDAO()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

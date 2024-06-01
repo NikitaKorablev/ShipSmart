@@ -1,9 +1,7 @@
-package com.example.shipsmart.dbLogic
+package com.shipsmart.dbLogic
 
 import android.content.Context
-import androidx.room.AutoMigration
 import androidx.room.Database
-import androidx.room.DeleteColumn
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
@@ -14,16 +12,15 @@ import androidx.room.RoomDatabase
 //        AutoMigration(from = 1, to = 2)
 //    ]
     )
-abstract class MainDB: RoomDatabase() {
-    abstract fun dao(): Dao
+abstract class AndroidDB: RoomDatabase() {
+    abstract fun dao(): AndroidDAO
     companion object {
-        fun getDB(context: Context): MainDB {
+        fun getDB(context: Context): AndroidDB {
             return Room.databaseBuilder(
                 context.applicationContext,
-                MainDB::class.java,
+                AndroidDB::class.java,
                 "test2.db"
             ).build()
         }
     }
-
 }

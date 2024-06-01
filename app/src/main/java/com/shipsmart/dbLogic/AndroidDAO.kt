@@ -1,11 +1,11 @@
-package com.example.shipsmart.dbLogic
+package com.shipsmart.dbLogic
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
-interface Dao {
+interface AndroidDAO {
     @Insert
     fun insetUser(user: AndroidUser)
 
