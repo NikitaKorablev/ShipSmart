@@ -1,4 +1,4 @@
-package com.shipsmart.dbLogic
+package com.shipsmart.data.dbLogic
 
 import androidx.room.Dao
 import io.github.jan.supabase.SupabaseClient

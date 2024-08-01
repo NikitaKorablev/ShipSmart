@@ -1,4 +1,4 @@
-package com.shipsmart
+package com.shipsmart.presentation
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,8 +10,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import com.shipsmart.dbLogic.SupabaseDAO
-import com.shipsmart.dbLogic.SupabaseUser
+import com.shipsmart.R
+import com.shipsmart.data.dbLogic.SupabaseDAO
+import com.shipsmart.data.dbLogic.SupabaseUser
 import io.ktor.utils.io.errors.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
