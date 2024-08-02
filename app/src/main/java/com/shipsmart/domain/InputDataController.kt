@@ -1,16 +1,11 @@
 package com.shipsmart.domain
 
-import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleCoroutineScope
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.shipsmart.R
 import com.shipsmart.data.dbLogic.SupabaseDAO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
