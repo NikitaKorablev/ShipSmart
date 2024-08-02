@@ -21,19 +21,14 @@ class InputDataController(activity: AppCompatActivity) {
     private var authorisationDB = SupabaseDAO()
     private val toastConstructor = ToastConstructor(activity)
 
-    lateinit var em : EditText
-    lateinit var pasw : EditText
+    lateinit var emailInput : EditText
+    lateinit var passwordInput : EditText
 
     fun login(view: View?) {
         Log.e(TEST, "login was called")
 
-        val email = em.text.toString()
-        val password = pasw.text.toString()
-
-        Log.e(TEST, "email is $email")
-        Log.e(TEST, "password is $password")
-
-        toastConstructor.show("Hello World")
+        val email = emailInput.text.toString()
+        val password = passwordInput.text.toString()
 
         lifecycleScope.launch {
             val user = withContext(Dispatchers.IO) {
