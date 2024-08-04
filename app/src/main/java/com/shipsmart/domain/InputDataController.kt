@@ -2,11 +2,16 @@ package com.shipsmart.domain
 
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
+import com.shipsmart.R
 import com.shipsmart.data.dbLogic.SupabaseDAO
+import com.shipsmart.data.dbLogic.SupabaseUser
+import io.ktor.utils.io.errors.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,22 +25,32 @@ class InputDataController(activity: AppCompatActivity) {
     lateinit var passwordInput : EditText
 
     fun login(view: View?) {
-        Log.e(TEST, "login was called")
+        Log.d(TEST, "login was called")
 
         val email = emailInput.text.toString()
         val password = passwordInput.text.toString()
 
-        if (!dataIsValid(email, password)) return
+        if (!inputDataIsValid(email, password)) return
         checkUserPassword(email, password)
     }
 
-    private fun dataIsValid(email: String, password: String) : Boolean {
+    fun signup(view: View?) {
+        Log.d(TEST, "signup was called")
+
+        val email = emailInput.text.toString()
+        val password = passwordInput.text.toString()
+
+        if (!inputDataIsValid(email, password)) return
+        createNewUser(email, password)
+    }
+
+    private fun inputDataIsValid(email: String, password: String) : Boolean {
         if (!emailIsValid(email)) {
             toastConstructor.show("Email is incorrect")
             return false
         }
 
-        if (passwordIsValid(password)) {
+        if (!passwordIsValid(password)) {
             toastConstructor.show("Password is incorrect")
             return false
         }
@@ -53,7 +68,7 @@ class InputDataController(activity: AppCompatActivity) {
 
     private fun passwordIsValid(password: String): Boolean {
         //TODO: add password validation
-        return password.length > 4
+        return password.length > 3
     }
 
     private fun checkUserPassword(email: String, password: String) {
@@ -79,6 +94,29 @@ class InputDataController(activity: AppCompatActivity) {
                 toastConstructor.show("An error occurred!")
             }
         }
+    }
+
+    private fun createNewUser(email: String, password: String) {
+        lifecycleScope.launch {
+            val user = SupabaseUser(email=email, password=password)
+
+            try {
+                withContext(Dispatchers.IO) {
+                    try {
+                        authorisationDB.newUser(user)
+                        toastConstructor.show("Successfully created user")
+                    } catch (e: IOException) {
+                        toastConstructor.show(e.message.toString())
+                    } catch(e: Exception) {
+                        throw e
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(ERROR, e.message.toString())
+                toastConstructor.show(e.message.toString())
+            }
+        }
+
     }
 
     companion object {

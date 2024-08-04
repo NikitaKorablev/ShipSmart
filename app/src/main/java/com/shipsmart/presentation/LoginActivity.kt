@@ -13,6 +13,10 @@ import com.shipsmart.domain.InputDataController
 class LoginActivity : AppCompatActivity() {
     private lateinit var inputDataController : InputDataController
 
+    private lateinit var activityLabel: TextView
+    private lateinit var enterButton: Button
+    private lateinit var changeActivityButton: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -20,23 +24,35 @@ class LoginActivity : AppCompatActivity() {
 
         Log.d(TEST, "login_window start")
 
+        this.activityLabel = findViewById(R.id.activityLabel)
+        this.enterButton = findViewById(R.id.enter_button)
+        this.changeActivityButton = findViewById(R.id.change_activity)
+
         inputDataController.emailInput = findViewById(R.id.EmailAddress)
         inputDataController.passwordInput = findViewById(R.id.Password)
 
-        val enterButton = findViewById<Button>(R.id.login_button)
-        val openSignupButton = findViewById<TextView>(R.id.open_signUp)
-
-        if (enterButton == null || openSignupButton == null) Log.e(LOGIN_WINDOW, "EnterButton is undefined.")
-        else {
-            enterButton.setOnClickListener(inputDataController::login)
-            openSignupButton.setOnClickListener(this::onOpenSignupButtonClick)
-        }
+        this.enterButton.setOnClickListener(inputDataController::login)
+        this.changeActivityButton.setOnClickListener(this::setSignupActivity)
     }
 
-    private fun onOpenSignupButtonClick(view: View?) {
-        val intent = Intent(this, SignUpActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-        startActivity(intent)
+    private fun setLoginActivity(view: View?) {
+        activityLabel.text = "Вход"
+
+        enterButton.text = "Войти"
+        enterButton.setOnClickListener(inputDataController::login)
+
+        changeActivityButton.text = "Создать аккаунт"
+        changeActivityButton.setOnClickListener(this::setSignupActivity)
+    }
+
+    private fun setSignupActivity(view: View?) {
+        activityLabel.text = "Регистрация"
+
+        enterButton.text = "Зарегистрироваться"
+        enterButton.setOnClickListener(inputDataController::signup)
+
+        changeActivityButton.text = "Уже есть аккаунт"
+        changeActivityButton.setOnClickListener(this::setLoginActivity)
     }
 
     companion object {
