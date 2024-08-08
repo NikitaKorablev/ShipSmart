@@ -1,6 +1,6 @@
 package com.shipsmart.data.dbLogic
 
-import androidx.room.Dao
+import com.shipsmart.domain.dbDAO
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
@@ -10,7 +10,7 @@ import io.ktor.utils.io.errors.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class SupabaseDAO {
+class SupabaseDAO : dbDAO {
     private var supabase: SupabaseClient = createSupabaseClient(
         supabaseUrl = "https://cquvqmwqlyqlntovmele.supabase.co",
         supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNxdXZxbXdxbHlxbG50b3ZtZWxlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTYwMjEyMjksImV4cCI6MjAzMTU5NzIyOX0.DQ-YAQZjXUj6o88VLI2zpg3pLMj4NtDhhAMs_RNvHEw"
@@ -19,7 +19,7 @@ class SupabaseDAO {
     }
 
     // suspend - асинхронно выполняемая функция
-    suspend fun getUser(email: String): SupabaseUser? = withContext(Dispatchers.IO) {
+    override suspend fun getUser(email: String): SupabaseUser? = withContext(Dispatchers.IO) {
         val user = supabase.from(table = "Users")
             .select(columns = Columns.list("email", "password")) {
             filter {
@@ -29,7 +29,7 @@ class SupabaseDAO {
         return@withContext user
     }
 
-    suspend fun newUser(user: SupabaseUser) {
+    override suspend fun addUser(user: SupabaseUser) {
         if (getUser(user.email) == null) supabase.from("Users").insert(user)
         else throw IOException("This user already exists")
     }

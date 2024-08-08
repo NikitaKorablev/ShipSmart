@@ -1,6 +1,5 @@
 package com.shipsmart.presentation
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,11 +7,11 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.shipsmart.R
+import com.shipsmart.data.dbLogic.SupabaseDAO
 import com.shipsmart.domain.InputDataController
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var inputDataController : InputDataController
-
     private lateinit var activityLabel: TextView
     private lateinit var enterButton: Button
     private lateinit var changeActivityButton: TextView
@@ -21,6 +20,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         inputDataController = InputDataController(this)
+        inputDataController.dbDao = SupabaseDAO()
 
         Log.d(TEST, "login_window start")
 
@@ -59,6 +59,5 @@ class LoginActivity : AppCompatActivity() {
         const val TAG = "Main_Activity"
         const val LOGIN_WINDOW = "LogIn_Window"
         const val TEST = "LoginActivityTest"
-
     }
 }

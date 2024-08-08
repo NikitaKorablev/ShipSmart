@@ -2,14 +2,10 @@ package com.shipsmart.domain
 
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.lifecycleScope
-import com.shipsmart.R
-import com.shipsmart.data.dbLogic.SupabaseDAO
 import com.shipsmart.data.dbLogic.SupabaseUser
 import io.ktor.utils.io.errors.*
 import kotlinx.coroutines.Dispatchers
@@ -18,11 +14,12 @@ import kotlinx.coroutines.withContext
 
 class InputDataController(activity: AppCompatActivity) {
     private val lifecycleScope: LifecycleCoroutineScope = activity.lifecycleScope
-    private var authorisationDB = SupabaseDAO()
     private val toastConstructor = ToastConstructor(activity)
 
     lateinit var emailInput : EditText
     lateinit var passwordInput : EditText
+
+    lateinit var dbDao: dbDAO
 
     fun login(view: View?) {
         Log.d(TEST, "login was called")
@@ -75,7 +72,7 @@ class InputDataController(activity: AppCompatActivity) {
         lifecycleScope.launch {
             try {
                 val user = withContext(Dispatchers.IO) {
-                    return@withContext authorisationDB.getUser(email = email)
+                    return@withContext dbDao.getUser(email = email)
                 }
 
                 if (user == null) {
@@ -103,7 +100,7 @@ class InputDataController(activity: AppCompatActivity) {
             try {
                 withContext(Dispatchers.IO) {
                     try {
-                        authorisationDB.newUser(user)
+                        dbDao.addUser(user)
                         toastConstructor.show("Successfully created user")
                     } catch (e: IOException) {
                         toastConstructor.show(e.message.toString())
