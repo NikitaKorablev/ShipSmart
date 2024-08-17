@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.shipsmart.R
 import com.shipsmart.data.dbLogic.SupabaseDAO
-import com.shipsmart.domain.InputDataController
+import com.shipsmart.domain.repository.InputDataController
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var inputDataController : InputDataController

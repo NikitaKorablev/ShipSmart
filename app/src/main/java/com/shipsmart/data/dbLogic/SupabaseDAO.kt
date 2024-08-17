@@ -1,6 +1,7 @@
 package com.shipsmart.data.dbLogic
 
-import com.shipsmart.domain.dbDAO
+import com.shipsmart.domain.repository.DBdao
+import com.shipsmart.domain.model.SupabaseUser
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
@@ -10,7 +11,7 @@ import io.ktor.utils.io.errors.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class SupabaseDAO : dbDAO {
+class SupabaseDAO : DBdao {
     private var supabase: SupabaseClient = createSupabaseClient(
         supabaseUrl = "https://cquvqmwqlyqlntovmele.supabase.co",
         supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNxdXZxbXdxbHlxbG50b3ZtZWxlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTYwMjEyMjksImV4cCI6MjAzMTU5NzIyOX0.DQ-YAQZjXUj6o88VLI2zpg3pLMj4NtDhhAMs_RNvHEw"
