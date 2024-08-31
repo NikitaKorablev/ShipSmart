@@ -1,7 +1,7 @@
-package com.shipsmart.data.dbLogic
+package shipsmart.dbLogic
 
-import com.shipsmart.domain.repository.DBdao
-import com.shipsmart.domain.model.SupabaseUser
+import shipsmart.domain.repository.DBdao
+import shipsmart.domain.model.SupabaseUser
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest

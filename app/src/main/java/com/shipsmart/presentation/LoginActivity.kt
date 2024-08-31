@@ -1,4 +1,4 @@
-package com.shipsmart.presentation
+package shipsmart.presentation
 
 import android.os.Bundle
 import android.util.Log
@@ -7,8 +7,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.shipsmart.R
-import com.shipsmart.data.dbLogic.SupabaseDAO
-import com.shipsmart.domain.repository.InputDataController
+import shipsmart.dbLogic.SupabaseDAO
+import shipsmart.domain.repository.InputDataController
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var inputDataController : InputDataController

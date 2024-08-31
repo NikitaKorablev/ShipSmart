@@ -1,4 +1,4 @@
-package com.shipsmart.data.dbLogic
+package shipsmart.dbLogic
 
 import androidx.room.Dao
 import androidx.room.Insert
