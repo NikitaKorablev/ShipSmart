@@ -18,9 +18,6 @@
 <!--            android:name=".LoginActivity"-->
 <!--            android:exported="false" />-->
         <activity
-            android:name=".presentation.SignUpActivity"
-            android:exported="false" />
-        <activity
             android:name=".presentation.LoginActivity"
             android:exported="true">
             <intent-filter>

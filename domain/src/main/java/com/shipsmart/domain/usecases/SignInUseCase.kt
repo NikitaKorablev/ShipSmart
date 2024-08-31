@@ -1,48 +1,22 @@
 package com.shipsmart.domain.usecases
 
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import com.shipsmart.domain.model.RegistrationParams
-import com.shipsmart.domain.repository.DBdao
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.shipsmart.domain.repository.InputDataChecker
+import com.shipsmart.domain.repository.UserRepositoryInterface
 
-class SignIn_UseCase(activity: AppCompatActivity) : InputDataChecker(activity) {
-    lateinit var dbDao: DBdao
+class SignInUseCase(private val userRepository: UserRepositoryInterface) {
+    private val inputDataChecker = InputDataChecker()
 
-    fun signUp(email: String, password: String) {
+    suspend fun execute(email: String, password: String): Boolean {
         Log.d(TEST, "login was called")
 
         val regParams = RegistrationParams(email, password)
+        val dataIsValid = inputDataChecker.inputDataIsValid(regParams)
+        if (!dataIsValid) return false
 
-        if (!inputDataIsValid(regParams)) return
-        checkUserPassword(regParams)
-    }
-
-    private fun checkUserPassword(regParams: RegistrationParams) {
-        lifecycleScope.launch {
-            try {
-                val user = withContext(Dispatchers.IO) {
-                    return@withContext dbDao.getUser(email = regParams.email)
-                }
-
-                if (user == null) {
-                    toastConstructor.show("User with this email is undefined!")
-                    return@launch // уничтожается текущая корутина
-                }
-                if (user.password != regParams.password) {
-                    toastConstructor.show("Your password is incorrect!")
-                    return@launch // уничтожается текущая корутина
-                }
-
-                // TODO: Start MainActivity
-                toastConstructor.show("Welcome back!")
-            } catch (e: Exception) {
-                Log.e(ERROR, e.message.toString())
-                toastConstructor.show("An error occurred!")
-            }
-        }
+        val user = userRepository.getUser(regParams)
+        return !(user == null || user.password != regParams.password)
     }
 
     companion object {

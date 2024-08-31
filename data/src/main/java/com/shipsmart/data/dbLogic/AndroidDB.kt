@@ -1,4 +1,4 @@
-package shipsmart.dbLogic
+package com.shipsmart.data.dbLogic
 
 import android.content.Context
 import androidx.room.Database

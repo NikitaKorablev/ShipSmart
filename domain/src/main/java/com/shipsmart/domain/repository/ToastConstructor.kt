@@ -1,4 +1,4 @@
-package com.example.domain.repository
+package com.shipsmart.domain.repository
 
 import android.content.Context
 import android.util.Log

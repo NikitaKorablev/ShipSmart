@@ -1,58 +1,79 @@
-package shipsmart.presentation
+package com.shipsmart.presentation
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.shipsmart.R
-import shipsmart.dbLogic.SupabaseDAO
-import shipsmart.domain.repository.InputDataController
+import com.shipsmart.data.UserRepository
+import com.shipsmart.data.dbLogic.SupabaseDAO
+import com.shipsmart.domain.model.SignActivityObjects
+import com.shipsmart.domain.repository.ToastConstructor
+import com.shipsmart.domain.usecases.SignInUseCase
+import com.shipsmart.domain.usecases.SignUpUseCase
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var inputDataController : InputDataController
-    private lateinit var activityLabel: TextView
-    private lateinit var enterButton: Button
-    private lateinit var changeActivityButton: TextView
+    private val userRepository = UserRepository(SupabaseDAO())
+
+    private val signInUseCase = SignInUseCase(userRepository = userRepository)
+    private val signUpUseCase = SignUpUseCase(userRepository = userRepository)
+
+    private lateinit var signActivityObjects: SignActivityObjects
+    private lateinit var toast: ToastConstructor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        inputDataController = InputDataController(this)
-        inputDataController.dbDao = SupabaseDAO()
+
+        toast = ToastConstructor(context = applicationContext)
+
+        val activityLabel = findViewById<TextView>(R.id.activityLabel)
+        val enterButton = findViewById<Button>(R.id.enter_button)
+        val changeActivityButton = findViewById<TextView>(R.id.change_activity)
+
+        this.signActivityObjects = SignActivityObjects(activityLabel,
+            enterButton, changeActivityButton)
+
+        setLoginActivity()
 
         Log.d(TEST, "login_window start")
-
-        this.activityLabel = findViewById(R.id.activityLabel)
-        this.enterButton = findViewById(R.id.enter_button)
-        this.changeActivityButton = findViewById(R.id.change_activity)
-
-        inputDataController.emailInput = findViewById(R.id.EmailAddress)
-        inputDataController.passwordInput = findViewById(R.id.Password)
-
-        this.enterButton.setOnClickListener(inputDataController::login)
-        this.changeActivityButton.setOnClickListener(this::setSignupActivity)
     }
 
-    private fun setLoginActivity(view: View?) {
-        activityLabel.text = "Вход"
+    private fun setLoginActivity() {
+        signActivityObjects.activityLabel.text = "Вход"
+        signActivityObjects.enterButton.text = "Войти"
 
-        enterButton.text = "Войти"
-        enterButton.setOnClickListener(inputDataController::login)
+        signActivityObjects.enterButton.setOnClickListener {
+            val email: String = findViewById<TextView>(R.id.EmailAddress).text.toString()
+            val password: String = findViewById<TextView>(R.id.Password).text.toString()
 
-        changeActivityButton.text = "Создать аккаунт"
-        changeActivityButton.setOnClickListener(this::setSignupActivity)
+            AppCompatActivity().lifecycleScope.launch {
+                signInUseCase.execute(email, password)
+            }
+        }
+
+        signActivityObjects.changeActivityButton.text = "Создать аккаунт"
+        signActivityObjects.changeActivityButton.setOnClickListener{ setSignupActivity() }
     }
 
-    private fun setSignupActivity(view: View?) {
-        activityLabel.text = "Регистрация"
+    private fun setSignupActivity() {
+        signActivityObjects.activityLabel.text = "Регистрация"
 
-        enterButton.text = "Зарегистрироваться"
-        enterButton.setOnClickListener(inputDataController::signup)
+        signActivityObjects.enterButton.text = "Зарегистрироваться"
+        signActivityObjects.enterButton.setOnClickListener {
+            val email: String = findViewById<TextView>(R.id.EmailAddress).text.toString()
+            val password: String = findViewById<TextView>(R.id.Password).text.toString()
 
-        changeActivityButton.text = "Уже есть аккаунт"
-        changeActivityButton.setOnClickListener(this::setLoginActivity)
+            AppCompatActivity().lifecycleScope.launch {
+                signUpUseCase.execute(email, password)
+            }
+        }
+
+        signActivityObjects.changeActivityButton.text = "Уже есть аккаунт"
+        signActivityObjects.changeActivityButton.setOnClickListener{ setLoginActivity() }
     }
 
     companion object {

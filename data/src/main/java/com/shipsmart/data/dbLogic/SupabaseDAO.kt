@@ -1,15 +1,15 @@
-package shipsmart.dbLogic
+package com.shipsmart.data.dbLogic
 
-import shipsmart.domain.repository.DBdao
-import shipsmart.domain.model.SupabaseUser
+import com.shipsmart.domain.repository.DBdao
+import com.shipsmart.domain.model.SupabaseUser
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.query.Columns
-import io.ktor.utils.io.errors.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 class SupabaseDAO : DBdao {
     private var supabase: SupabaseClient = createSupabaseClient(
@@ -30,8 +30,16 @@ class SupabaseDAO : DBdao {
         return@withContext user
     }
 
-    override suspend fun addUser(user: SupabaseUser) {
-        if (getUser(user.email) == null) supabase.from("Users").insert(user)
+    override suspend fun addUser(user: SupabaseUser) : Boolean {
+        if (getUser(user.email) == null) {
+            val response = supabase.from("Users").insert(user) {
+                select()
+            }.decodeSingleOrNull<SupabaseUser>()
+
+            if (response == null) return false
+        }
         else throw IOException("This user already exists")
+
+        return true
     }
 }

@@ -1,7 +1,6 @@
-package com.shipsmart.domain.usecases
+package com.shipsmart.domain.repository
 
 import com.shipsmart.domain.model.RegistrationParams
-import com.shipsmart.domain.repository.ToastConstructor
 
 class InputDataChecker {
 

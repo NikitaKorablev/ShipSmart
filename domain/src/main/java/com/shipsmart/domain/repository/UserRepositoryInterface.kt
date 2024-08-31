@@ -1,4 +1,9 @@
 package com.shipsmart.domain.repository
 
-class UserRepositoryInterface {
+import com.shipsmart.domain.model.RegistrationParams
+import com.shipsmart.domain.model.SupabaseUser
+
+interface UserRepositoryInterface {
+    suspend fun getUser(regParams: RegistrationParams): SupabaseUser?
+    suspend fun createNewUser(regParams: RegistrationParams): Boolean
 }

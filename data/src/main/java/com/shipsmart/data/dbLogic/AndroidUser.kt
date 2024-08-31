@@ -1,4 +1,4 @@
-package shipsmart.dbLogic
+package com.shipsmart.data.dbLogic
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
