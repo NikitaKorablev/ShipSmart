@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        toast = ToastConstructor(context = applicationContext)
+        toast = ToastConstructor(context = this)
 
         val activityLabel = findViewById<TextView>(R.id.activityLabel)
         val enterButton = findViewById<Button>(R.id.enter_button)
@@ -51,7 +51,10 @@ class LoginActivity : AppCompatActivity() {
             val password: String = findViewById<TextView>(R.id.Password).text.toString()
 
             AppCompatActivity().lifecycleScope.launch {
-                signInUseCase.execute(email, password)
+                if (signInUseCase.execute(email, password))
+                    toast.show("Welcome back!")
+                else
+                    toast.show("Email or password is incorrect!")
             }
         }
 
@@ -68,7 +71,10 @@ class LoginActivity : AppCompatActivity() {
             val password: String = findViewById<TextView>(R.id.Password).text.toString()
 
             AppCompatActivity().lifecycleScope.launch {
-                signUpUseCase.execute(email, password)
+                if (signUpUseCase.execute(email, password))
+                    toast.show("Welcome!")
+                else
+                    toast.show("Email or password is incorrect!")
             }
         }
 

@@ -30,16 +30,12 @@ class SupabaseDAO : DBdao {
         return@withContext user
     }
 
-    override suspend fun addUser(user: SupabaseUser) : Boolean {
+    override suspend fun addUser(user: SupabaseUser) : SupabaseUser? {
         if (getUser(user.email) == null) {
-            val response = supabase.from("Users").insert(user) {
+            return supabase.from("Users").insert(user) {
                 select()
             }.decodeSingleOrNull<SupabaseUser>()
-
-            if (response == null) return false
         }
         else throw IOException("This user already exists")
-
-        return true
     }
 }

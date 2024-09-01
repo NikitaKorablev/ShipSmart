@@ -8,14 +8,15 @@ import com.shipsmart.domain.repository.UserRepositoryInterface
 class SignUpUseCase(private val userRepository: UserRepositoryInterface) {
     private val inputDataChecker = InputDataChecker()
 
-    suspend fun execute(email: String, password: String) {
+    suspend fun execute(email: String, password: String): Boolean {
         Log.d(TEST, "signup was called")
 
         val regParams = RegistrationParams(email, password)
+        val dataIsValid = inputDataChecker.inputDataIsValid(regParams)
+        if (!dataIsValid) return false
 
-        if (!inputDataChecker.inputDataIsValid(regParams)) return
-
-        userRepository.createNewUser(regParams)
+        val user = userRepository.createNewUser(regParams)
+        return !(user == null || user.password != regParams.password || user.email != regParams.email)
     }
 
     companion object {

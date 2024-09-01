@@ -4,5 +4,5 @@ import com.shipsmart.domain.model.SupabaseUser
 
 interface DBdao {
     suspend fun getUser(email: String) : SupabaseUser?
-    suspend fun addUser(user: SupabaseUser) : Boolean
+    suspend fun addUser(user: SupabaseUser) : SupabaseUser?
 }
