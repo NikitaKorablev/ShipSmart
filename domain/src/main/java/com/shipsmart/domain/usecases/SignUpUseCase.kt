@@ -11,12 +11,12 @@ class SignUpUseCase(private val userRepository: UserRepositoryInterface) {
     suspend fun execute(email: String, password: String): Boolean {
         Log.d(TEST, "signup was called")
 
-        val regParams = RegistrationParams(email, password)
+        val regParams = RegistrationParams(email=email, password=password)
         val dataIsValid = inputDataChecker.inputDataIsValid(regParams)
         if (!dataIsValid) return false
 
-        val user = userRepository.createNewUser(regParams)
-        return !(user == null || user.password != regParams.password || user.email != regParams.email)
+        val res: Boolean = userRepository.saveUser(regParams)
+        return res
     }
 
     companion object {

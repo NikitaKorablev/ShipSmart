@@ -11,7 +11,7 @@ class SignInUseCase(private val userRepository: UserRepositoryInterface) {
     suspend fun execute(email: String, password: String): Boolean {
         Log.d(TEST, "login was called")
 
-        val regParams = RegistrationParams(email, password)
+        val regParams = RegistrationParams(email=email, password=password)
         val dataIsValid = inputDataChecker.inputDataIsValid(regParams)
         if (!dataIsValid) return false
 
