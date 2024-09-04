@@ -1,36 +1,36 @@
 package com.shipsmart.data
 
 import android.util.Log
+import com.shipsmart.data.storage.UserStorageInterface
+import com.shipsmart.data.storage.model.SupabaseUser
 import com.shipsmart.domain.model.RegistrationParams
-import com.shipsmart.domain.model.SupabaseUser
-import com.shipsmart.domain.repository.DBdao
 import com.shipsmart.domain.repository.UserRepositoryInterface
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import java.io.IOException
 
-class UserRepository(private var dbDao: DBdao) : UserRepositoryInterface {
+class UserRepository(private var userStorage: UserStorageInterface) : UserRepositoryInterface {
+    override suspend fun getUser(regParams: RegistrationParams): RegistrationParams? {
+        val res = userStorage.getUser(email = regParams.email)
+        return mapToDomain(res)
+    }
 
-    override suspend fun getUser(regParams: RegistrationParams): SupabaseUser? {
-        return withContext(Dispatchers.IO) {
-            return@withContext dbDao.getUser(email = regParams.email)
+    override suspend fun saveUser(regParams: RegistrationParams): Boolean {
+        val storageUser = mapToStorage(params=regParams)
+
+        try {
+            return userStorage.addUser(storageUser)
+        } catch (e: IOException) {
+            Log.e(TAG, "Error adding user: " + e.message)
+            return false
         }
     }
 
-    override suspend fun createNewUser(regParams: RegistrationParams): SupabaseUser? {
-        val user = SupabaseUser(email=regParams.email, password=regParams.password)
+    private fun mapToStorage(params: RegistrationParams): SupabaseUser {
+        return SupabaseUser(params.id, params.name, params.email, params.password)
+    }
 
-        return withContext(Dispatchers.IO) {
-            val resultUser : SupabaseUser?
-            try {
-                resultUser = dbDao.addUser(user)
-            } catch (e: IOException) {
-                Log.e(TAG, "Error adding user: ", e)
-                return@withContext null
-            }
-
-            return@withContext resultUser
-        }
+    private fun mapToDomain(supabaseUser: SupabaseUser?): RegistrationParams? {
+        if (supabaseUser == null) return null
+        return RegistrationParams(supabaseUser.id, supabaseUser.name, supabaseUser.email, supabaseUser.password)
     }
 
     companion object {
