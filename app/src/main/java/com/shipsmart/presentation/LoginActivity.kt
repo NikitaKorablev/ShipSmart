@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.shipsmart.R
 import com.shipsmart.data.UserRepository
-import com.shipsmart.data.dbLogic.SupabaseDAO
+import com.shipsmart.data.storage.SupabaseUserStorage
 import com.shipsmart.domain.model.SignActivityObjects
 import com.shipsmart.domain.repository.ToastConstructor
 import com.shipsmart.domain.usecases.SignInUseCase
@@ -16,7 +16,7 @@ import com.shipsmart.domain.usecases.SignUpUseCase
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
-    private val userRepository = UserRepository(SupabaseDAO())
+    private val userRepository = UserRepository(SupabaseUserStorage())
 
     private val signInUseCase = SignInUseCase(userRepository = userRepository)
     private val signUpUseCase = SignUpUseCase(userRepository = userRepository)
