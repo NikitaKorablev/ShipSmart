@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">ShipSmart</string>
+    <string name="reg_label_1">Вход</string>
+    <string name="reg_label_2">Регистрация</string>
+
+    <string name="regButton_1">Войти</string>
+    <string name="regButton_2">Зарегистрироваться</string>
+
+    <string name="login_label">Email:</string>
+    <string name="login_text">mail@mail.ru</string>
+    <string name="password_label">Password:</string>
+    <string name="password_text">password</string>
+
+    <string name="login_underButton_text">
+        <u>У меня еше нет аккаунта</u>
+    </string>
+    <string name="signup_underButton_text">
+        <u>Уже есть аккаунт</u>
+    </string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
 </resources>
