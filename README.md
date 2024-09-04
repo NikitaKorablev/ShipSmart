@@ -1,2 +1,2 @@
 # ShipSmart
-My scientific work
+The delivery aggregator application
