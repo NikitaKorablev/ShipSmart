@@ -1,5 +1,7 @@
 package com.shipsmart.presentation
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -24,11 +26,17 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var signActivityObjects: SignActivityObjects
     private lateinit var toast: ToastConstructor
 
+    private val LOGIN_SETTINGS = "Login settings"
+    private val LOGIN_EMAIL = "Email"
+
+    private lateinit var login_settings: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         toast = ToastConstructor(context = this)
+        login_settings = getSharedPreferences(LOGIN_SETTINGS, MODE_PRIVATE)
 
         val activityLabel = findViewById<TextView>(R.id.activityLabel)
         val enterButton = findViewById<Button>(R.id.enter_button)
@@ -52,9 +60,8 @@ class LoginActivity : AppCompatActivity() {
 
             AppCompatActivity().lifecycleScope.launch {
                 if (signInUseCase.execute(email, password))
-                    toast.show("Welcome back!")
-                else
-                    toast.show("Email or password is incorrect!")
+                    startMainActivity(email)
+                else toast.show("Email or password is incorrect!")
             }
         }
 
@@ -72,14 +79,24 @@ class LoginActivity : AppCompatActivity() {
 
             AppCompatActivity().lifecycleScope.launch {
                 if (signUpUseCase.execute(email, password))
-                    toast.show("Welcome!")
-                else
-                    toast.show("Email or password is incorrect!")
+                    startMainActivity(email)
+                else toast.show("Email or password is incorrect!")
             }
         }
 
         signActivityObjects.changeActivityButton.text = "Уже есть аккаунт"
         signActivityObjects.changeActivityButton.setOnClickListener{ setLoginActivity() }
+    }
+
+    private fun startMainActivity(email: String) {
+        login_settings.edit()
+            .putString(LOGIN_EMAIL, email)
+            .apply()
+
+        val activity = Intent(baseContext, MainMenuActivity::class.java)
+        startActivity(activity)
+
+        finish()
     }
 
     companion object {
