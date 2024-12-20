@@ -7,9 +7,9 @@
     <string name="regButton_2">Зарегистрироваться</string>
 
     <string name="login_label">Email:</string>
-    <string name="login_text">mail@mail.ru</string>
+    <string name="login_text">Ваш email</string>
     <string name="password_label">Password:</string>
-    <string name="password_text">password</string>
+    <string name="password_text">********</string>
 
     <string name="login_underButton_text">
         <u>У меня еше нет аккаунта</u>

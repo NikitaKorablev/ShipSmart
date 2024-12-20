@@ -5,6 +5,7 @@
 
     <dimen name="reg_label_1_margin_bottom">20dp</dimen>
 
+    <dimen name="base_h_margin">40dp</dimen>
     <dimen name="registration_margin_top">20dp</dimen>
     <dimen name="registration_margin_bottom">100dp</dimen>
     <dimen name="registration_margin_left">50dp</dimen>
