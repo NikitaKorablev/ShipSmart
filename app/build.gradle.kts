@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.21"
 }
 
 android {
@@ -37,6 +39,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.designSystem)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout.v214)

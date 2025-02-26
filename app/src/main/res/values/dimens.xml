@@ -5,12 +5,8 @@
 
     <dimen name="reg_label_1_margin_bottom">20dp</dimen>
 
-<!--Base params-->
-    <dimen name="base_h_margin">40dp</dimen>
-    <dimen name="base_v_margin">50dp</dimen>
-    <dimen name="editText_h">20dp</dimen>
-    <dimen name="cornerRadius">10dp</dimen>
-    
+
+
 <!--Package input params-->
     <dimen name="inputParamTopMargin">5dp</dimen>
     <dimen name="paramTopMargin">15dp</dimen>
@@ -18,7 +14,7 @@
     <dimen name="packageParamsPadding">10dp</dimen>
     <dimen name="packageParamsMargin">15dp</dimen>
 
-    
+
 <!--    -->
     <dimen name="registration_margin_top">20dp</dimen>
     <dimen name="registration_margin_bottom">100dp</dimen>
