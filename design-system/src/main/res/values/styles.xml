@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="Widget.StartSmart.WhiteInputFieldStyle" parent="Widget.Material3.Button">
-        <item name="android:background">@drawable/edit_text_border_grey</item>
-        <item name="android:ems">10</item>
-    </style>
-</resources>

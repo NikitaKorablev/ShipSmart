@@ -20,6 +20,10 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "ShipSmart"
-include(":app")
-include(":design-system")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+include(":app")
+include(":core")
+include(":design-system")
+include(":features")
+
+include(":features:login")

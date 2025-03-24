@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
 
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.21"
+    id("kotlin-kapt")
 }
 
 android {
@@ -15,6 +16,8 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
+
+        project.ext.set("archivesBaseName", "ShipSmart-" + defaultConfig.versionName);
     }
 
     buildTypes {
@@ -40,11 +43,21 @@ android {
 
 dependencies {
     implementation(projects.designSystem)
+    implementation(projects.core)
+    implementation(projects.features.login)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout.v214)
     implementation(libs.material)
+
+    implementation(libs.androidx.lifecycle.extensions)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.activity.ktx)
+
+    // Dagger
+    implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
 
     // Retrofit
     implementation(libs.retrofit)
@@ -56,9 +69,4 @@ dependencies {
     // Kotlin serialization
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.constraintlayout)
-
-    // Supabase
-    implementation(platform("io.github.jan-tennert.supabase:bom:3.1.1"))
-    implementation("io.github.jan-tennert.supabase:postgrest-kt")
-    implementation(libs.ktor.client.android)
 }
