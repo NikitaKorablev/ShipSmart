@@ -19,9 +19,9 @@ class SupabaseModule {
 
     @Provides
     fun provideUserStorageInterface(
-//        @Named("apiKey") key: String,
-//        @Named("apiUrl") url: String
+        @Named("apiKey") key: String,
+        @Named("apiUrl") url: String
     ) : UserStorageInterface {
-        return SupabaseUserStorage()
+        return SupabaseUserStorage(key=key, url=url)
     }
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.shipsmartapp.login.data.states.InputDataState
 import com.shipsmartapp.login.domain.usecases.SignInUseCase
 import com.shipsmartapp.login.domain.usecases.SignUpUseCase
+import com.shipsmartapp.login.presentation.ActivityState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -20,6 +21,7 @@ class LoginViewModel: ViewModel() {
 
     private val _resultMessage = MutableSharedFlow<InputDataState>()
     val loginResultMessage: SharedFlow<InputDataState> = _resultMessage
+
 
     fun signIn(email: String, password: String) {
         viewModelScope.launch(Dispatchers.IO) {

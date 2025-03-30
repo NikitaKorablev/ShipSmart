@@ -1,7 +1,6 @@
 package com.core.data.storage
 
 import android.util.Log
-import com.core.data.RegistrationParams
 import com.core.data.SupabaseUser
 import com.core.domain.UserStorageInterface
 import io.github.jan.supabase.SupabaseClient
@@ -12,12 +11,11 @@ import io.github.jan.supabase.postgrest.query.Columns
 import java.io.IOException
 
 class SupabaseUserStorage(
-//    val key: String,
-//    val url: String
+    key: String, url: String
 ): UserStorageInterface {
     private val supabase: SupabaseClient = createSupabaseClient(
-        supabaseUrl = "https://cquvqmwqlyqlntovmele.supabase.co",
-        supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNxdXZxbXdxbHlxbG50b3ZtZWxlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTYwMjEyMjksImV4cCI6MjAzMTU5NzIyOX0.DQ-YAQZjXUj6o88VLI2zpg3pLMj4NtDhhAMs_RNvHEw"
+        supabaseUrl = url,
+        supabaseKey = key
     ) {
         install(Postgrest)
     }
