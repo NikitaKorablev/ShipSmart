@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Base params-->
+    <dimen name="base_h_margin">40dp</dimen>
+    <dimen name="base_v_margin">50dp</dimen>
+    <dimen name="editText_h">20dp</dimen>
+    <dimen name="cornerRadius">10dp</dimen>
+</resources>

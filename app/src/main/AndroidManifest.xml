@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".application.ShipSmartApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,23 +14,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShipSmart"
-        tools:targetApi="31">
-<!--        <activity-->
-<!--            android:name=".LoginActivity"-->
-<!--            android:exported="false" />-->
+        tools:targetApi="31" >
         <activity
-            android:name=".presentation.LoginActivity"
-            android:exported="true">
+            android:name=".presentation.PackageChooserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.PackageParamsActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.shipsmartapp.login.presentation.LoginActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
     </application>
-
 </manifest>
