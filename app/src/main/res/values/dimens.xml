@@ -6,15 +6,6 @@
     <dimen name="reg_label_1_margin_bottom">20dp</dimen>
 
 
-
-<!--Package input params-->
-    <dimen name="inputParamTopMargin">5dp</dimen>
-    <dimen name="paramTopMargin">15dp</dimen>
-
-    <dimen name="packageParamsPadding">10dp</dimen>
-    <dimen name="packageParamsMargin">15dp</dimen>
-
-
 <!--    -->
     <dimen name="registration_margin_top">20dp</dimen>
     <dimen name="registration_margin_bottom">100dp</dimen>

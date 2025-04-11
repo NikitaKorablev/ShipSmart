@@ -15,9 +15,9 @@
             <option value="$PROJECT_DIR$/design-system" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/login" />
+            <option value="$PROJECT_DIR$/features/package_size_collector" />
           </set>
         </option>
-        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

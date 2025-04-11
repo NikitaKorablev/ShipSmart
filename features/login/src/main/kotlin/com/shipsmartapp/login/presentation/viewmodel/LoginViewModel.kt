@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.shipsmartapp.login.data.states.InputDataState
 import com.shipsmartapp.login.domain.usecases.SignInUseCase
 import com.shipsmartapp.login.domain.usecases.SignUpUseCase
-import com.shipsmartapp.login.presentation.ActivityState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow

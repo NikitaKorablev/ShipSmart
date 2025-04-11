@@ -1,11 +1,11 @@
-package com.app.presentation
+package com.shipsmartapp.package_size_collector.presentation
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.app.databinding.ActivityPackageParamsBinding
+import com.shipsmartapp.package_size_collector.databinding.ActivityPackageParamsBinding
 
 class PackageParamsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPackageParamsBinding

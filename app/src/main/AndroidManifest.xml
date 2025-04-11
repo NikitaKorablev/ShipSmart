@@ -19,7 +19,7 @@
             android:name=".presentation.PackageChooserActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.PackageParamsActivity"
+            android:name="com.shipsmartapp.package_size_collector.presentation.PackageParamsActivity"
             android:exported="false" />
         <activity
             android:name="com.shipsmartapp.login.presentation.LoginActivity"
