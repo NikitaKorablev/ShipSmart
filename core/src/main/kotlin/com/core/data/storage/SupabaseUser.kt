@@ -1,4 +1,4 @@
-package com.core.data
+package com.core.data.storage
 
 import kotlinx.serialization.Serializable
 

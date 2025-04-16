@@ -1,4 +1,4 @@
-package com.core.data
+package com.core.data.storage
 
 data class RegistrationParams(
     var id: Int? = null,

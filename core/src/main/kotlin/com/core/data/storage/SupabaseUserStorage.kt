@@ -1,7 +1,6 @@
 package com.core.data.storage
 
 import android.util.Log
-import com.core.data.SupabaseUser
 import com.core.domain.UserStorageInterface
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient

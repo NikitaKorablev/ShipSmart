@@ -52,6 +52,13 @@ dependencies {
     implementation("io.github.jan-tennert.supabase:postgrest-kt")
     implementation(libs.ktor.client.android)
 
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+    implementation(libs.converter.gson)
+
     // Kotlin serialization
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.constraintlayout)
