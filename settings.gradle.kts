@@ -28,3 +28,4 @@ include(":features")
 
 include(":features:login")
 include(":features:package_size_collector")
+include(":features:delivery_choosing")

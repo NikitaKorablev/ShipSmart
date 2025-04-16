@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.shipsmartapp.package_size_collector"
+    namespace = "com.delivery_choosing"
     compileSdk = 35
 
     defaultConfig {
@@ -38,12 +38,17 @@ android {
 }
 
 dependencies {
-    implementation(projects.designSystem)
     implementation(projects.core)
 
     // Dagger
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
+
+    implementation(libs.androidx.activity.ktx)
+
+    //coroutines
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

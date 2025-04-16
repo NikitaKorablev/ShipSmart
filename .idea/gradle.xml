@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/design-system" />
             <option value="$PROJECT_DIR$/features" />
+            <option value="$PROJECT_DIR$/features/delivery_choosing" />
             <option value="$PROJECT_DIR$/features/login" />
             <option value="$PROJECT_DIR$/features/package_size_collector" />
           </set>
