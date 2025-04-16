@@ -16,7 +16,7 @@
         android:theme="@style/Theme.ShipSmart"
         tools:targetApi="31" >
         <activity
-            android:name=".presentation.PackageChooserActivity"
+            android:name="com.shipsmartapp.delivery_choosing.presentation.DeliveryChooserActivity"
             android:exported="false" />
         <activity
             android:name="com.shipsmartapp.package_size_collector.presentation.PackageParamsActivity"

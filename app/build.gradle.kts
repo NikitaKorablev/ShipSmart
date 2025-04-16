@@ -45,6 +45,8 @@ dependencies {
     implementation(projects.designSystem)
     implementation(projects.core)
     implementation(projects.features.login)
+    implementation(projects.features.packageSizeCollector)
+    implementation(projects.features.deliveryChoosing)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -58,13 +60,6 @@ dependencies {
     // Dagger
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
-
-    // Retrofit
-    implementation(libs.retrofit)
-    implementation(libs.retrofit2.kotlinx.serialization.converter)
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
-    implementation(libs.converter.gson)
 
     // Kotlin serialization
     implementation(libs.kotlinx.serialization.json)
