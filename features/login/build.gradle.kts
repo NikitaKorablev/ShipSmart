@@ -45,12 +45,11 @@ dependencies {
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
 
+    implementation(libs.androidx.activity.ktx)
+
     implementation(libs.androidx.lifecycle.extensions)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-//    implementation(libs.androidx.activity)
-    implementation("androidx.activity:activity-ktx:1.10.1")
-//    implementation(libs.androidx.activity.ktx)
     implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

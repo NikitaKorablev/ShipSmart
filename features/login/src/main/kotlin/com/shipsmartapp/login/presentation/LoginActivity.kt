@@ -17,6 +17,8 @@ import com.shipsmartapp.login.utils.LoginRouter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import androidx.core.content.edit
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
 class LoginActivity : AppCompatActivity() {
 
@@ -31,6 +33,12 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.login_main_activity)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(0, systemBars.top, 0, systemBars.bottom)
+            insets
+        }
+
         initDI()
 
         loginSettings = getSharedPreferences(LOGIN_SETTINGS, MODE_PRIVATE)

@@ -2,8 +2,8 @@ package com.shipsmartapp.login.data
 
 import android.util.Log
 import com.core.domain.UserStorageInterface
-import com.core.data.SupabaseUser
-import com.core.data.RegistrationParams
+import com.core.data.storage.SupabaseUser
+import com.core.data.storage.RegistrationParams
 import com.shipsmartapp.login.data.states.UserDataState
 import com.shipsmartapp.login.domain.repository.UserRepositoryInterface
 import java.io.IOException

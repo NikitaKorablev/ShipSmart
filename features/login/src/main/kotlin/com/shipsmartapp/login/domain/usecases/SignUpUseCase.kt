@@ -2,7 +2,7 @@ package com.shipsmartapp.login.domain.usecases
 
 import android.util.Log
 import com.shipsmartapp.login.data.states.InputDataState
-import com.core.data.RegistrationParams
+import com.core.data.storage.RegistrationParams
 import com.shipsmartapp.login.domain.repository.InputDataChecker
 import com.shipsmartapp.login.domain.repository.UserRepositoryInterface
 

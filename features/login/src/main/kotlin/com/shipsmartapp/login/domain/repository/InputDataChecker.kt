@@ -1,7 +1,7 @@
 package com.shipsmartapp.login.domain.repository
 
 import com.shipsmartapp.login.data.states.InputDataState
-import com.core.data.RegistrationParams
+import com.core.data.storage.RegistrationParams
 
 class InputDataChecker {
 
