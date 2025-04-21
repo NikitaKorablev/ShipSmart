@@ -3,6 +3,7 @@ package com.shipsmartapp.delivery_choosing.presentation
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,9 +11,11 @@ import androidx.activity.viewModels
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.core.data.PackageExtraParams
 import com.delivery_choosing.R
 import com.delivery_choosing.databinding.ActivityDeliveryChooserBinding
+import com.shipsmartapp.delivery_choosing.data.DeliveryCompany
 import com.shipsmartapp.delivery_choosing.data.network.NetworkResponse
 import com.shipsmartapp.delivery_choosing.di.DeliveryDepsProvider
 import com.shipsmartapp.delivery_choosing.presentation.viewmodel.DeliveryChooserViewModel
@@ -22,11 +25,12 @@ class DeliveryChooserActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDeliveryChooserBinding
     private val viewModel: DeliveryChooserViewModel by viewModels()
+    private lateinit var recyclerAdapter: DeliveryChooserRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         binding = ActivityDeliveryChooserBinding.inflate(layoutInflater)
-//        enableEdgeToEdge()
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.delivery_chooser_main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -35,6 +39,7 @@ class DeliveryChooserActivity : AppCompatActivity() {
         }
 
         initDI()
+        initRecyclerView()
 
         lifecycleScope.launch {
             listenDeliveryCost()
@@ -52,11 +57,23 @@ class DeliveryChooserActivity : AppCompatActivity() {
         deliveryComponent.inject(viewModel)
     }
 
+    private fun initRecyclerView() {
+        recyclerAdapter = DeliveryChooserRecyclerAdapter()
+        binding.recyclerView.adapter = recyclerAdapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
     private suspend fun listenDeliveryCost() {
         viewModel.deliveryCost.collect { result ->
             when(result) {
                 is NetworkResponse.Accept ->
-                    setDeliveryCost(result.cost)
+                    updateCompanyList(
+                        DeliveryCompany(
+                        "Boxberry",
+                            result.cost,
+                            "2"
+                        )
+                    )
                 is NetworkResponse.Error -> {
                     Log.e(TAG, result.message)
                     Toast.makeText(baseContext, result.message, Toast.LENGTH_LONG).show()
@@ -65,9 +82,11 @@ class DeliveryChooserActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun setDeliveryCost(cost: String) {
-        binding.boxVal.text = "Cost: $cost"
+    private fun updateCompanyList(company: DeliveryCompany) {
+        val companies = recyclerAdapter.companyList.toMutableList()
+        companies.add(company)
+
+        recyclerAdapter.companyList = companies
     }
 
     private fun getPackageExtraParams(bundle: Bundle?): PackageExtraParams {

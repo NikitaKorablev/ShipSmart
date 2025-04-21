@@ -39,12 +39,14 @@ android {
 
 dependencies {
     implementation(projects.core)
+    implementation(projects.designSystem)
 
     // Dagger
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
 
     implementation(libs.androidx.activity.ktx)
+    implementation(libs.swiperefreshlayout)
 
     //coroutines
     implementation(libs.kotlinx.coroutines.core)
