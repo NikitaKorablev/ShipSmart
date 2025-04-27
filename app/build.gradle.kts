@@ -43,7 +43,9 @@ android {
 
 dependencies {
     implementation(projects.designSystem)
-    implementation(projects.core)
+    implementation(projects.core.utils)
+    implementation(projects.core.dbNetwork)
+    implementation(projects.core.deliveryNetwork)
     implementation(projects.features.login)
     implementation(projects.features.packageSizeCollector)
     implementation(projects.features.deliveryChoosing)

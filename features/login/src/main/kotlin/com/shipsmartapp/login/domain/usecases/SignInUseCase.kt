@@ -2,7 +2,7 @@ package com.shipsmartapp.login.domain.usecases
 
 import android.util.Log
 import com.shipsmartapp.login.data.states.InputDataState
-import com.core.data.storage.RegistrationParams
+import com.core.db_network.data.storage.RegistrationParams
 import com.shipsmartapp.login.data.states.UserDataState
 import com.shipsmartapp.login.domain.repository.InputDataChecker
 import com.shipsmartapp.login.domain.repository.UserRepositoryInterface
@@ -12,7 +12,8 @@ class SignInUseCase(private val userRepository: UserRepositoryInterface) {
     suspend fun execute(email: String, password: String): InputDataState {
         Log.d(TAG, "login was called")
 
-        val regParams = RegistrationParams(email=email, password=password)
+        val regParams =
+            com.core.db_network.data.storage.RegistrationParams(email = email, password = password)
         return when(val dataState = InputDataChecker().dataIsValid(params=regParams)) {
             is InputDataState.ErrorState ->
                 dataState
@@ -22,7 +23,7 @@ class SignInUseCase(private val userRepository: UserRepositoryInterface) {
         }
     }
 
-    private suspend fun checkPassword(params: RegistrationParams): InputDataState {
+    private suspend fun checkPassword(params: com.core.db_network.data.storage.RegistrationParams): InputDataState {
         Log.d(TAG, params.toString())
 
         when (val userDataState = userRepository.getUser(params)) {

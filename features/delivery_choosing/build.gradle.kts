@@ -38,7 +38,8 @@ android {
 }
 
 dependencies {
-    implementation(projects.core)
+    implementation(projects.core.utils)
+    implementation(projects.core.deliveryNetwork)
     implementation(projects.designSystem)
 
     // Dagger

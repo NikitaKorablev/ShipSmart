@@ -1,11 +1,11 @@
 package com.shipsmartapp.login.domain.repository
 
 import com.shipsmartapp.login.data.states.InputDataState
-import com.core.data.storage.RegistrationParams
+import com.core.db_network.data.storage.RegistrationParams
 
 class InputDataChecker {
 
-    fun dataIsValid(params: RegistrationParams) : InputDataState {
+    fun dataIsValid(params: com.core.db_network.data.storage.RegistrationParams) : InputDataState {
         if (!emailIsValid(params.email)) {
             val message = "This email address is not suitable"
             return InputDataState.ErrorState(message)

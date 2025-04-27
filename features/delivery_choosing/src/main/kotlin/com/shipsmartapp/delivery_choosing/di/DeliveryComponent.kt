@@ -1,6 +1,6 @@
 package com.shipsmartapp.delivery_choosing.di
 
-import com.core.domain.DeliveryService
+import com.core.delivery_network.domain.BoxberryDeliveryService
 import com.core.utils.Router
 import com.shipsmartapp.delivery_choosing.presentation.DeliveryChooserActivity
 import com.shipsmartapp.delivery_choosing.presentation.viewmodel.DeliveryChooserViewModel
@@ -14,7 +14,7 @@ import javax.inject.Singleton
 )
 interface DeliveryComponent {
 
-    val service: DeliveryService
+    val service: BoxberryDeliveryService
     fun inject(loginActivity: DeliveryChooserActivity)
     fun inject(viewModel: DeliveryChooserViewModel)
 

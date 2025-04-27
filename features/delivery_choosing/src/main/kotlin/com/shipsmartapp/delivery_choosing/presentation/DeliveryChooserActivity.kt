@@ -1,9 +1,7 @@
 package com.shipsmartapp.delivery_choosing.presentation
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -12,10 +10,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.core.data.PackageExtraParams
+import com.core.delivery_network.data.PackageExtraParams
 import com.delivery_choosing.R
 import com.delivery_choosing.databinding.ActivityDeliveryChooserBinding
-import com.shipsmartapp.delivery_choosing.data.DeliveryCompany
+import com.shipsmartapp.delivery_choosing.data.DeliveryData
 import com.shipsmartapp.delivery_choosing.data.network.NetworkResponse
 import com.shipsmartapp.delivery_choosing.di.DeliveryDepsProvider
 import com.shipsmartapp.delivery_choosing.presentation.viewmodel.DeliveryChooserViewModel
@@ -68,7 +66,7 @@ class DeliveryChooserActivity : AppCompatActivity() {
             when(result) {
                 is NetworkResponse.Accept ->
                     updateCompanyList(
-                        DeliveryCompany(
+                        DeliveryData(
                         "Boxberry",
                             result.cost,
                             "2"
@@ -82,15 +80,15 @@ class DeliveryChooserActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateCompanyList(company: DeliveryCompany) {
+    private fun updateCompanyList(company: DeliveryData) {
         val companies = recyclerAdapter.companyList.toMutableList()
         companies.add(company)
 
         recyclerAdapter.companyList = companies
     }
 
-    private fun getPackageExtraParams(bundle: Bundle?): PackageExtraParams {
-        val baseParams = PackageExtraParams(
+    private fun getPackageExtraParams(bundle: Bundle?): com.core.delivery_network.data.PackageExtraParams {
+        val baseParams = com.core.delivery_network.data.PackageExtraParams(
             from = "Нижний Новгород",
             where = "Москва",
             length = "15",
@@ -99,7 +97,7 @@ class DeliveryChooserActivity : AppCompatActivity() {
         )
 
         return bundle?.let {
-            PackageExtraParams(
+            com.core.delivery_network.data.PackageExtraParams(
                 from = it.getString("from") ?: baseParams.from,
                 where = it.getString("where") ?: baseParams.where,
                 length = it.getString("length") ?: baseParams.length,

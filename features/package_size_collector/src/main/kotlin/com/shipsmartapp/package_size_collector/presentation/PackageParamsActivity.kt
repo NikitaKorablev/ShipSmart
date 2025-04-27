@@ -5,7 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.core.data.PackageExtraParams
+import com.core.delivery_network.data.PackageExtraParams
 import com.core.utils.Router
 import com.shipsmartapp.package_size_collector.R
 import com.shipsmartapp.package_size_collector.databinding.ActivityPackageParamsBinding

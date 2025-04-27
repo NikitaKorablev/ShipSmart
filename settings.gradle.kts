@@ -26,6 +26,10 @@ include(":core")
 include(":design-system")
 include(":features")
 
+include(":core:delivery_network")
+include(":core:db_network")
+include(":core:utils")
 include(":features:login")
 include(":features:package_size_collector")
 include(":features:delivery_choosing")
+

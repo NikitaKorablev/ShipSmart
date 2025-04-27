@@ -1,7 +1,7 @@
 package com.shipsmartapp.delivery_choosing.di
 
-import com.core.di.NetworkDeliveryModule
-import com.core.domain.DeliveryService
+import com.core.delivery_network.di.NetworkDeliveryModule
+import com.core.delivery_network.domain.BoxberryDeliveryService
 import com.shipsmartapp.delivery_choosing.data.network.DeliveryRepositoryImpl
 import com.shipsmartapp.delivery_choosing.domain.repository.DeliveryRepository
 import com.shipsmartapp.delivery_choosing.domain.usecases.GetDeliveryCostUseCase
@@ -15,7 +15,7 @@ class DeliveryChoosingFeatureModule
 class DeliveryChooserModule {
     @Provides
     fun provideDeliveryRepositoryImpl(
-        service: DeliveryService
+        service: BoxberryDeliveryService
     ): DeliveryRepository {
         return DeliveryRepositoryImpl(service)
     }

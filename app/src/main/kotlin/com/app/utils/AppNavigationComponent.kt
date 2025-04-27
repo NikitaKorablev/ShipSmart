@@ -2,7 +2,7 @@ package com.app.utils
 
 import android.content.Context
 import android.content.Intent
-import com.core.data.PackageExtraParams
+import com.core.delivery_network.data.PackageExtraParams
 import com.shipsmartapp.delivery_choosing.presentation.DeliveryChooserActivity
 import com.shipsmartapp.package_size_collector.utils.PackageParamsCollectionRouter
 import com.shipsmartapp.package_size_collector.presentation.PackageParamsActivity

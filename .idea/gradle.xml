@@ -12,6 +12,9 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/db_network" />
+            <option value="$PROJECT_DIR$/core/delivery_network" />
+            <option value="$PROJECT_DIR$/core/utils" />
             <option value="$PROJECT_DIR$/design-system" />
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/delivery_choosing" />

@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.shipsmartapp.delivery_choosing.data.DeliveryCompany
+import com.shipsmartapp.delivery_choosing.data.DeliveryData
 import com.delivery_choosing.databinding.DeliveryCompanyListItemBinding
 
 class DeliveryChooserRecyclerAdapter(
@@ -13,7 +13,7 @@ class DeliveryChooserRecyclerAdapter(
     class DeliveryChooserHolder(val binding: DeliveryCompanyListItemBinding):
         RecyclerView.ViewHolder(binding.root)
 
-    var companyList: List<DeliveryCompany> = emptyList()
+    var companyList: List<DeliveryData> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(newValue) {
             field = newValue

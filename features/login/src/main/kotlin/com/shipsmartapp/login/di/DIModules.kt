@@ -1,8 +1,8 @@
 package com.shipsmartapp.login.di
 
-import com.core.di.SupabaseModule
+import com.core.db_network.di.SupabaseModule
 import com.shipsmartapp.login.data.UserRepositoryImpl
-import com.core.domain.UserStorageInterface
+import com.core.db_network.domain.UserStorageInterface
 import com.shipsmartapp.login.domain.repository.UserRepositoryInterface
 import com.shipsmartapp.login.domain.usecases.SignInUseCase
 import com.shipsmartapp.login.domain.usecases.SignUpUseCase
