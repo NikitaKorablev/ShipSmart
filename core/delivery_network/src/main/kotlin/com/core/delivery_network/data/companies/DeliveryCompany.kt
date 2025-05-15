@@ -5,6 +5,7 @@ import com.core.delivery_network.data.PackageExtraParams
 interface DeliveryCompany {
     val name: String
     val url: String
+    val imgResource: Int
 
     fun getUrl(packageExtraParams: PackageExtraParams): String
 }

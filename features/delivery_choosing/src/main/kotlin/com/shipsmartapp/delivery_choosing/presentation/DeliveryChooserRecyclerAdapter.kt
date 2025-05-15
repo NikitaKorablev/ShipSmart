@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.core.delivery_network.data.DeliveryData
 import com.delivery_choosing.databinding.DeliveryCompanyListItemBinding
+import com.delivery_choosing.R
 
 class DeliveryChooserRecyclerAdapter
 : RecyclerView.Adapter<DeliveryChooserRecyclerAdapter.DeliveryChooserHolder> () {
@@ -40,5 +41,6 @@ class DeliveryChooserRecyclerAdapter
         holder.binding.name.text = company.name
         holder.binding.cost.text = "${company.cost} руб."
         holder.binding.deliveryTime.text = "${company.deliveryTime} рабочих дня"
+        holder.binding.image.setBackgroundResource(R.drawable.cdek)
     }
 }

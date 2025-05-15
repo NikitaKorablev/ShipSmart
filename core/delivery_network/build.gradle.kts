@@ -35,6 +35,8 @@ android {
 }
 
 dependencies {
+    implementation(projects.designSystem)
+
     // Dagger
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)

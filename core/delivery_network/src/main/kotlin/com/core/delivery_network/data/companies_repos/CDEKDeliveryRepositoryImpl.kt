@@ -32,7 +32,8 @@ class CDEKDeliveryRepositoryImpl(
                 val deliveryData = DeliveryData(
                     name = company.name,
                     cost = formattedCost,
-                    deliveryTime = deliveryTime
+                    deliveryTime = deliveryTime,
+                    img = company.imgResource
                 )
                 NetworkResponse.Accept(deliveryData)
             } else {

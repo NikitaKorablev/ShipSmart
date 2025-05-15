@@ -1,12 +1,12 @@
 package com.core.delivery_network.data.companies
 
+import com.startsmartapp.design_system.R
 import com.core.delivery_network.data.PackageExtraParams
 
 class Boxberry: DeliveryCompany {
-    override val name: String
-        get() = "Boxberry"
-    override val url: String
-        get() = "https://boxberry.ru/proxy/delivery/cost/pip?method=TarificationLaP"
+    override val name = "Boxberry"
+    override val url = "https://boxberry.ru/proxy/delivery/cost/pip?method=TarificationLaP"
+    override val imgResource = R.drawable.boxberry
 
     override fun getUrl(packageExtraParams: PackageExtraParams): String {
         return "$url&sender_city=68&sender_country=643" +
