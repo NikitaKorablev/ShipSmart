@@ -1,22 +1,23 @@
-package com.shipsmartapp.delivery_choosing.data.network
+package com.core.delivery_network.data.companies_repos
 
-import android.annotation.SuppressLint
 import android.net.http.HttpException
 import android.os.Build
+import android.annotation.SuppressLint
 import androidx.annotation.RequiresExtension
+import com.core.delivery_network.data.DeliveryData
 import com.core.delivery_network.data.PackageExtraParams
 import com.core.delivery_network.domain.BoxberryDeliveryService
-import com.shipsmartapp.delivery_choosing.data.DeliveryCompany
-import com.shipsmartapp.delivery_choosing.data.DeliveryData
-import com.shipsmartapp.delivery_choosing.domain.repository.DeliveryRepository
+import com.core.delivery_network.data.companies.Boxberry
+import com.core.delivery_network.domain.repository.DeliveryRepository
+import javax.inject.Inject
 
-
-class DeliveryRepositoryImpl(
+class BoxberryDeliveryRepositoryImpl @Inject constructor(
     private var deliveryService: BoxberryDeliveryService
 ): DeliveryRepository {
+    override val company = Boxberry()
+
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override suspend fun getDeliveryCost(
-        company: DeliveryCompany,
         packageParams: PackageExtraParams
     ): NetworkResponse {
         return try {

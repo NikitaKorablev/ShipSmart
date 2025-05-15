@@ -4,11 +4,11 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.shipsmartapp.delivery_choosing.data.DeliveryData
+import com.core.delivery_network.data.DeliveryData
 import com.delivery_choosing.databinding.DeliveryCompanyListItemBinding
 
-class DeliveryChooserRecyclerAdapter(
-): RecyclerView.Adapter<DeliveryChooserRecyclerAdapter.DeliveryChooserHolder> () {
+class DeliveryChooserRecyclerAdapter
+: RecyclerView.Adapter<DeliveryChooserRecyclerAdapter.DeliveryChooserHolder> () {
 
     class DeliveryChooserHolder(val binding: DeliveryCompanyListItemBinding):
         RecyclerView.ViewHolder(binding.root)

@@ -1,30 +1,30 @@
 package com.shipsmartapp.delivery_choosing.di
 
+import com.core.delivery_network.di.DeliveryCompaniesModule
 import com.core.delivery_network.di.NetworkDeliveryModule
-import com.core.delivery_network.domain.BoxberryDeliveryService
-import com.shipsmartapp.delivery_choosing.data.network.DeliveryRepositoryImpl
-import com.shipsmartapp.delivery_choosing.domain.repository.DeliveryRepository
+import com.core.delivery_network.domain.repository.DeliveryReposList
 import com.shipsmartapp.delivery_choosing.domain.usecases.GetDeliveryCostUseCase
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
-@Module(includes = [NetworkDeliveryModule::class, DeliveryChooserModule::class])
+@Module(
+    includes = [
+        NetworkDeliveryModule::class,
+        DeliveryCompaniesModule::class,
+        DeliveryChooserModule::class
+    ]
+)
 class DeliveryChoosingFeatureModule
 
 @Module
 class DeliveryChooserModule {
     @Provides
-    fun provideDeliveryRepositoryImpl(
-        service: BoxberryDeliveryService
-    ): DeliveryRepository {
-        return DeliveryRepositoryImpl(service)
-    }
-
-    @Provides
+    @Singleton
     fun provideGetDeliveryCostUseCase(
-        repository: DeliveryRepository
+        repositories: DeliveryReposList
     ): GetDeliveryCostUseCase {
-        return GetDeliveryCostUseCase(repository)
+        return GetDeliveryCostUseCase(repositories)
     }
 }
 

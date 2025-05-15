@@ -1,11 +1,17 @@
 package com.core.delivery_network.di
 
+import com.core.delivery_network.data.companies_repos.BoxberryDeliveryRepositoryImpl
+import com.core.delivery_network.data.companies_repos.CDEKDeliveryRepositoryImpl
 import com.core.delivery_network.domain.BoxberryDeliveryService
+import com.core.delivery_network.domain.CDEKDeliveryService
+import com.core.delivery_network.domain.repository.DeliveryReposList
+import com.core.delivery_network.domain.repository.DeliveryRepository
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
+import javax.inject.Singleton
 
 @Module
 class NetworkDeliveryModule {
@@ -14,7 +20,8 @@ class NetworkDeliveryModule {
     fun provideBaseUrl(): String = "https://google.com"
 
     @Provides
-    fun provideBoxberryDeliveryService (
+    @Singleton
+    fun provideBoxberryDeliveryService(
         @Named("BaseUrl") url: String
     ): BoxberryDeliveryService {
         return Retrofit.Builder()
@@ -23,4 +30,44 @@ class NetworkDeliveryModule {
             .build()
             .create(BoxberryDeliveryService::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideCDEKDeliveryService(
+        @Named("BaseUrl") url: String
+    ): CDEKDeliveryService {
+        return Retrofit.Builder()
+            .baseUrl(url)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(CDEKDeliveryService::class.java)
+    }
 }
+
+@Module
+class DeliveryCompaniesModule {
+    @Provides
+    @Singleton
+    fun provideBoxberryDeliveryRepository(
+        service: BoxberryDeliveryService
+    ): DeliveryRepository {
+        return BoxberryDeliveryRepositoryImpl(service)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCDEKDeliveryRepository(
+        service: CDEKDeliveryService
+    ): DeliveryRepository {
+        return CDEKDeliveryRepositoryImpl(service)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeliveryReposList(
+        boxberryRepo: BoxberryDeliveryRepositoryImpl
+    ): DeliveryReposList {
+        return DeliveryReposList(boxberryRepo)
+    }
+}
+

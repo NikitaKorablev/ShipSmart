@@ -1,6 +1,7 @@
 package com.core.delivery_network.domain
 
-import com.core.delivery_network.data.network.*
+import com.core.delivery_network.data.companies_repos.response_data.BoxberryApiResponse
+import com.core.delivery_network.data.companies_repos.response_data.CDEKApiResponse
 import retrofit2.http.GET
 import retrofit2.http.Url
 

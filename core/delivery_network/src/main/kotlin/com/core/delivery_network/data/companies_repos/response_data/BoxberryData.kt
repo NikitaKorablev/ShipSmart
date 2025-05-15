@@ -1,12 +1,12 @@
-package com.core.delivery_network.data.network
+package com.core.delivery_network.data.companies_repos.response_data
 
 data class BoxberryApiResponse (
     val status: Int,
     val err: List<Any>,
-    val data: List<DeliveryData>
+    val data: List<BoxberryDeliveryData>
 )
 
-data class DeliveryData(
+data class BoxberryDeliveryData(
     val delivery_type: Int,
     val cd_price: Int,
     val cost: Double,

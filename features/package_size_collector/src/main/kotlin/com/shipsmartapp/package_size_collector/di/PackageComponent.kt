@@ -20,7 +20,7 @@ interface PackageCollectorComponent {
 }
 
 interface PackageCollectorDeps {
-    val router: com.core.utils.Router
+    val router: Router
 }
 
 interface PackageCollectorDepsProvider {

@@ -23,7 +23,7 @@ import androidx.core.view.WindowInsetsCompat
 class LoginActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var router: com.core.utils.Router
+    lateinit var router: Router
     private val viewModel: LoginViewModel by viewModels()
 
     private lateinit var loginSettings: SharedPreferences

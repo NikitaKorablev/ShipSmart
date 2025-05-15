@@ -1,4 +1,4 @@
-package com.shipsmartapp.delivery_choosing.data
+package com.core.delivery_network.data
 
 data class DeliveryData(
     val name: String,

@@ -1,6 +1,6 @@
-package com.shipsmartapp.delivery_choosing.data.network
+package com.core.delivery_network.data.companies_repos
 
-import com.shipsmartapp.delivery_choosing.data.DeliveryData
+import com.core.delivery_network.data.DeliveryData
 
 sealed class NetworkResponse {
     data class Accept(val data: DeliveryData): NetworkResponse()
