@@ -8,8 +8,10 @@ class CDEK: DeliveryCompany {
     override val url = "https://www.cdek.ru/api-lkfl/getTariffInfo/"
     override val imgResource = R.drawable.cdek
 
-    override fun getUrl(packageExtraParams: PackageExtraParams): String {
+    override fun getCityUrl(): String {
+        TODO("Not yet implemented")
+    }
+    override fun getCostUrl(packageExtraParams: PackageExtraParams): String {
         return url
     }
-
 }

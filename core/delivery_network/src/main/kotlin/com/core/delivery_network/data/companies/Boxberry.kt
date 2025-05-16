@@ -8,9 +8,15 @@ class Boxberry: DeliveryCompany {
     override val url = "https://boxberry.ru/proxy/delivery/cost/pip?method=TarificationLaP"
     override val imgResource = R.drawable.boxberry
 
-    override fun getUrl(packageExtraParams: PackageExtraParams): String {
-        return "$url&sender_city=68&sender_country=643" +
-                "&receiver_city=33&receiver_country=643" +
+    override fun getCityUrl(): String {
+        return "https://boxberry.ru/api/v1/cities/list"
+    }
+    override fun getCostUrl(packageExtraParams: PackageExtraParams): String {
+        val cityParams = packageExtraParams.cityParams
+        return "$url&sender_city=${cityParams.senderCity}" +
+                "&sender_country=${cityParams.senderCountry}" +
+                "&receiver_city=${cityParams.receiverCity}" +
+                "&receiver_country=${cityParams.receiverCountry}" +
                 "&public_price=100000" +
                 "&package[boxberry_package]=0" +
                 "&package[width]=${packageExtraParams.width}" +

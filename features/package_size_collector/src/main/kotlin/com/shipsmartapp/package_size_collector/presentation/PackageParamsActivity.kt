@@ -5,7 +5,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.core.delivery_network.data.PackageExtraParams
+import com.core.delivery_network.data.CityData
+import com.core.delivery_network.data.PackageData
 import com.core.utils.Router
 import com.shipsmartapp.package_size_collector.R
 import com.shipsmartapp.package_size_collector.databinding.ActivityPackageParamsBinding
@@ -41,20 +42,31 @@ class PackageParamsActivity : AppCompatActivity() {
     }
 
     private fun onCalculateButtonClicked(view: View?) {
-        val packageParams = getPackageExtraParams(binding)
+        val packageParams = getPackageData(binding)
 
         (router as PackageParamsCollectionRouter)
             .navToDeliveryChoosingActivity(this@PackageParamsActivity, packageParams)
     }
 
-    private fun getPackageExtraParams(binding: ActivityPackageParamsBinding)
-    : PackageExtraParams {
-        return PackageExtraParams(
-            height = binding.heightValue.text.toString(),
-            width = binding.widthValue.text.toString(),
-            length = binding.lengthValue.text.toString(),
-            from = binding.cityFrom.text.toString(),
-            where = binding.cityWhere.text.toString()
+    private fun getPackageData(binding: ActivityPackageParamsBinding)
+    : PackageData {
+        val cityData = CityData(
+            senderCity = binding.cityFrom.text.toString().trim(),
+            receiverCity = binding.cityWhere.text.toString().trim(),
+            senderCountry = BASE_COUNTRY,
+            receiverCountry = BASE_COUNTRY
         )
+
+        return PackageData(
+            height = binding.heightValue.text.toString().trim(),
+            width = binding.widthValue.text.toString().trim(),
+            length = binding.lengthValue.text.toString().trim(),
+
+            cityData = cityData
+        )
+    }
+
+    companion object {
+        const val BASE_COUNTRY = "Россия"
     }
 }

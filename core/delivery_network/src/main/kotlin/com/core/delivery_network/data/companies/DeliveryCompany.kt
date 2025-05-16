@@ -7,5 +7,6 @@ interface DeliveryCompany {
     val url: String
     val imgResource: Int
 
-    fun getUrl(packageExtraParams: PackageExtraParams): String
+    fun getCityUrl(): String
+    fun getCostUrl(packageExtraParams: PackageExtraParams): String
 }

@@ -2,6 +2,7 @@ package com.core.delivery_network.di
 
 import com.core.delivery_network.data.companies_repos.BoxberryDeliveryRepositoryImpl
 import com.core.delivery_network.data.companies_repos.CDEKDeliveryRepositoryImpl
+import com.core.delivery_network.domain.BoxberryCityCodeService
 import com.core.delivery_network.domain.BoxberryDeliveryService
 import com.core.delivery_network.domain.CDEKDeliveryService
 import com.core.delivery_network.domain.repository.DeliveryReposList
@@ -18,6 +19,18 @@ class NetworkDeliveryModule {
     @Provides
     @Named("BaseUrl")
     fun provideBaseUrl(): String = "https://google.com"
+
+    @Provides
+    @Singleton
+    fun provideBoxberryCityCodeService(
+        @Named("BaseUrl") url: String
+    ): BoxberryCityCodeService {
+        return Retrofit.Builder()
+            .baseUrl(url)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(BoxberryCityCodeService::class.java)
+    }
 
     @Provides
     @Singleton
@@ -49,9 +62,10 @@ class DeliveryCompaniesModule {
     @Provides
     @Singleton
     fun provideBoxberryDeliveryRepository(
-        service: BoxberryDeliveryService
+        cityCodeService: BoxberryCityCodeService,
+        deliveryService: BoxberryDeliveryService
     ): DeliveryRepository {
-        return BoxberryDeliveryRepositoryImpl(service)
+        return BoxberryDeliveryRepositoryImpl(cityCodeService, deliveryService)
     }
 
     @Provides

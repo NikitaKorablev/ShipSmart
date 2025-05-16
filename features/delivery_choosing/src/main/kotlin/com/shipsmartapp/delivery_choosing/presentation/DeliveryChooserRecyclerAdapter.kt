@@ -41,6 +41,6 @@ class DeliveryChooserRecyclerAdapter
         holder.binding.name.text = company.name
         holder.binding.cost.text = "${company.cost} руб."
         holder.binding.deliveryTime.text = "${company.deliveryTime} рабочих дня"
-        holder.binding.image.setBackgroundResource(R.drawable.cdek)
+        holder.binding.image.setBackgroundResource(company.img)
     }
 }

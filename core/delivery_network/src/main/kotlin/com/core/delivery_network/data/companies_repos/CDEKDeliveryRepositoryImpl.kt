@@ -4,9 +4,11 @@ import android.net.http.HttpException
 import android.os.Build
 import android.annotation.SuppressLint
 import androidx.annotation.RequiresExtension
+import com.core.delivery_network.data.PackageData
 import com.core.delivery_network.data.DeliveryData
 import com.core.delivery_network.data.PackageExtraParams
 import com.core.delivery_network.data.companies.CDEK
+import com.core.delivery_network.data.companies_repos.city_response_data.CityResponse
 import com.core.delivery_network.domain.CDEKDeliveryService
 import com.core.delivery_network.domain.repository.DeliveryRepository
 
@@ -14,13 +16,16 @@ class CDEKDeliveryRepositoryImpl(
     private val deliveryService: CDEKDeliveryService
 ) : DeliveryRepository {
     override val company = CDEK()
+    override suspend fun getCitiesData(cityParams: PackageData): CityResponse {
+        TODO("Not yet implemented")
+    }
 
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override suspend fun getDeliveryCost(
-        packageParams: PackageExtraParams
-    ): NetworkResponse {
+        packageParams: PackageExtraParams,
+    ): DeliveryResponse {
         return try {
-            val url = company.getUrl(packageParams)
+            val url = company.getCostUrl(packageParams)
             val response = deliveryService.getData(url)
 
             val data = response.data.find { it.delivery_type == 4 }
@@ -35,14 +40,14 @@ class CDEKDeliveryRepositoryImpl(
                     deliveryTime = deliveryTime,
                     img = company.imgResource
                 )
-                NetworkResponse.Accept(deliveryData)
+                DeliveryResponse.Accept(deliveryData)
             } else {
-                NetworkResponse.Error("Getting delivery cost exception: Cost not found")
+                DeliveryResponse.Error("Getting delivery cost exception: Cost not found")
             }
         } catch (e: HttpException) {
-            NetworkResponse.Error("Getting delivery cost exception: ${e.message}")
+            DeliveryResponse.Error("Getting delivery cost exception: ${e.message}")
         } catch (e: Exception) {
-            NetworkResponse.Error("Getting delivery cost exception: ${e.message}")
+            DeliveryResponse.Error("Getting delivery cost exception: ${e.message}")
         }
     }
 
