@@ -1,14 +1,14 @@
 package com.core.delivery_network.data
 
-data class PackageData(
+data class PackageParams(
     val height: String,
     val width: String,
     val length: String,
 
-    val cityData: CityData
+    val cityParams: CityParams
 )
 
-data class CityData(
+data class CityParams(
     val senderCity: String,
     val senderCountry: String,
     val receiverCity: String,

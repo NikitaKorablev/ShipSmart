@@ -2,11 +2,10 @@ package com.core.delivery_network.di
 
 import com.core.delivery_network.data.companies_repos.BoxberryDeliveryRepositoryImpl
 import com.core.delivery_network.data.companies_repos.CDEKDeliveryRepositoryImpl
-import com.core.delivery_network.domain.BoxberryCityCodeService
-import com.core.delivery_network.domain.BoxberryDeliveryService
-import com.core.delivery_network.domain.CDEKDeliveryService
+import com.core.delivery_network.domain.delivery_services.CDEKDeliveryService
 import com.core.delivery_network.domain.repository.DeliveryReposList
 import com.core.delivery_network.domain.repository.DeliveryRepository
+import com.core.delivery_network.domain.delivery_services.BoxberryDeliveryService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -17,25 +16,17 @@ import javax.inject.Singleton
 @Module
 class NetworkDeliveryModule {
     @Provides
-    @Named("BaseUrl")
-    fun provideBaseUrl(): String = "https://google.com"
+    @Named("BoxberryBaseUrl")
+    fun provideBoxberryBaseUrl(): String = "https://boxberry.ru/"
 
     @Provides
-    @Singleton
-    fun provideBoxberryCityCodeService(
-        @Named("BaseUrl") url: String
-    ): BoxberryCityCodeService {
-        return Retrofit.Builder()
-            .baseUrl(url)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(BoxberryCityCodeService::class.java)
-    }
+    @Named("CDEKBaseUrl")
+    fun provideCDEKBaseUrl(): String = "https://cdek.ru/"
 
     @Provides
     @Singleton
     fun provideBoxberryDeliveryService(
-        @Named("BaseUrl") url: String
+        @Named("BoxberryBaseUrl") url: String
     ): BoxberryDeliveryService {
         return Retrofit.Builder()
             .baseUrl(url)
@@ -47,7 +38,7 @@ class NetworkDeliveryModule {
     @Provides
     @Singleton
     fun provideCDEKDeliveryService(
-        @Named("BaseUrl") url: String
+        @Named("CDEKBaseUrl") url: String
     ): CDEKDeliveryService {
         return Retrofit.Builder()
             .baseUrl(url)
@@ -62,10 +53,9 @@ class DeliveryCompaniesModule {
     @Provides
     @Singleton
     fun provideBoxberryDeliveryRepository(
-        cityCodeService: BoxberryCityCodeService,
-        deliveryService: BoxberryDeliveryService
+        service: BoxberryDeliveryService
     ): DeliveryRepository {
-        return BoxberryDeliveryRepositoryImpl(cityCodeService, deliveryService)
+        return BoxberryDeliveryRepositoryImpl(service)
     }
 
     @Provides
@@ -79,9 +69,10 @@ class DeliveryCompaniesModule {
     @Provides
     @Singleton
     fun provideDeliveryReposList(
-        boxberryRepo: BoxberryDeliveryRepositoryImpl
+        boxberryRepo: BoxberryDeliveryRepositoryImpl,
+        cdekRepo: CDEKDeliveryRepositoryImpl
     ): DeliveryReposList {
-        return DeliveryReposList(boxberryRepo)
+        return DeliveryReposList(boxberryRepo, cdekRepo)
     }
 }
 

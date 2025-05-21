@@ -2,9 +2,8 @@ package com.shipsmartapp.delivery_choosing.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.core.delivery_network.data.PackageData
-import com.core.delivery_network.data.PackageExtraParams
-import com.core.delivery_network.data.companies_repos.DeliveryResponse
+import com.core.delivery_network.data.PackageParams
+import com.core.delivery_network.data.response_data.DeliveryResponse
 import com.shipsmartapp.delivery_choosing.domain.usecases.GetDeliveryCostUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -19,7 +18,7 @@ class DeliveryChooserViewModel: ViewModel() {
     private val _deliveryCost = MutableSharedFlow<DeliveryResponse>()
     val deliveryCost: SharedFlow<DeliveryResponse> = _deliveryCost
 
-    fun getDeliveryCost(packageParams: PackageData) {
+    fun getDeliveryCost(packageParams: PackageParams) {
         viewModelScope.launch(Dispatchers.IO) {
             getDeliveryCostUseCase.execute(packageParams).collect{ response ->
                 _deliveryCost.emit(response)

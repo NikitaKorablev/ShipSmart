@@ -1,9 +1,11 @@
-package com.core.delivery_network.data.companies_repos.city_response_data
+package com.core.delivery_network.data.response_data.city_response_data
 
-data class BoxberryCityData(
+import com.core.delivery_network.data.response_data.ApiResponse
+
+data class BoxberryCityDataResponse(
     val country: List<BoxberryCountry>,
     val cities: List<BoxberryCity>
-)
+): ApiResponse
 
 data class BoxberryCountry(
     val name: String,

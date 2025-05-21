@@ -1,10 +1,12 @@
-package com.core.delivery_network.data.companies_repos.cost_response_data
+package com.core.delivery_network.data.response_data.cost_response_data
+
+import com.core.delivery_network.data.response_data.ApiResponse
 
 data class BoxberryApiResponse (
     val status: Int,
     val err: List<Any>,
     val data: List<BoxberryDeliveryData>
-)
+): ApiResponse
 
 data class BoxberryDeliveryData(
     val delivery_type: Int,

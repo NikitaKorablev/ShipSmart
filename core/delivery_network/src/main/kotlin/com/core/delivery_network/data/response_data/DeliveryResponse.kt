@@ -1,4 +1,4 @@
-package com.core.delivery_network.data.companies_repos
+package com.core.delivery_network.data.response_data
 
 import com.core.delivery_network.data.DeliveryData
 

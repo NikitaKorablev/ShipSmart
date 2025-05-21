@@ -1,19 +1,20 @@
 package com.core.delivery_network.data.companies
 
 import com.startsmartapp.design_system.R
-import com.core.delivery_network.data.PackageExtraParams
+import com.core.delivery_network.data.PackageParams
 
 class Boxberry: DeliveryCompany {
     override val name = "Boxberry"
-    override val url = "https://boxberry.ru/proxy/delivery/cost/pip?method=TarificationLaP"
     override val imgResource = R.drawable.boxberry
 
-    override fun getCityUrl(): String {
-        return "https://boxberry.ru/api/v1/cities/list"
-    }
-    override fun getCostUrl(packageExtraParams: PackageExtraParams): String {
+    private val cityUrl = "https://boxberry.ru/api/v1/cities/list"
+    private val costUrl = "https://boxberry.ru/proxy/delivery/cost/pip?method=TarificationLaP"
+
+    override fun getCityUrl(city: String): String { return cityUrl }
+
+    override fun getCostUrl(packageExtraParams: PackageParams): String {
         val cityParams = packageExtraParams.cityParams
-        return "$url&sender_city=${cityParams.senderCity}" +
+        return "$costUrl&sender_city=${cityParams.senderCity}" +
                 "&sender_country=${cityParams.senderCountry}" +
                 "&receiver_city=${cityParams.receiverCity}" +
                 "&receiver_country=${cityParams.receiverCountry}" +

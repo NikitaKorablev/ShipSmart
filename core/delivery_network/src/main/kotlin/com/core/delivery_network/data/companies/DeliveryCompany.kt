@@ -1,12 +1,11 @@
 package com.core.delivery_network.data.companies
 
-import com.core.delivery_network.data.PackageExtraParams
+import com.core.delivery_network.data.PackageParams
 
 interface DeliveryCompany {
     val name: String
-    val url: String
     val imgResource: Int
 
-    fun getCityUrl(): String
-    fun getCostUrl(packageExtraParams: PackageExtraParams): String
+    fun getCityUrl(city: String = ""): String
+    fun getCostUrl(packageExtraParams: PackageParams): String
 }

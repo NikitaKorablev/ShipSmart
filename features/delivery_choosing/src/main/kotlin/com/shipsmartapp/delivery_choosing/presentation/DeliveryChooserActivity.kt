@@ -10,13 +10,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.core.delivery_network.data.CityData
+import com.core.delivery_network.data.CityParams
 import com.core.delivery_network.data.DeliveryData
-import com.core.delivery_network.data.PackageData
-import com.core.delivery_network.data.PackageExtraParams
+import com.core.delivery_network.data.PackageParams
 import com.delivery_choosing.R
 import com.delivery_choosing.databinding.ActivityDeliveryChooserBinding
-import com.core.delivery_network.data.companies_repos.DeliveryResponse
+import com.core.delivery_network.data.response_data.DeliveryResponse
 import com.shipsmartapp.delivery_choosing.di.DeliveryDepsProvider
 import com.shipsmartapp.delivery_choosing.presentation.viewmodel.DeliveryChooserViewModel
 import kotlinx.coroutines.launch
@@ -83,13 +82,13 @@ class DeliveryChooserActivity : AppCompatActivity() {
         recyclerAdapter.companyList = companies
     }
 
-    private fun getPackageExtraParams(bundle: Bundle?): PackageData {
-        val baseParams = PackageData(
+    private fun getPackageExtraParams(bundle: Bundle?): PackageParams {
+        val baseParams = PackageParams(
             length = "15",
             width = "15",
             height = "15",
 
-            cityData = CityData(
+            cityParams = CityParams(
                 senderCountry = "Россия",
                 receiverCountry = "Россия",
                 senderCity = "Нижний Новгород",
@@ -98,17 +97,17 @@ class DeliveryChooserActivity : AppCompatActivity() {
         )
 
         return bundle?.let {
-            PackageData(
+            PackageParams(
                 length = it.getString("length") ?: baseParams.length,
                 width = it.getString("width") ?: baseParams.width,
                 height = it.getString("height") ?: baseParams.height,
-                cityData = CityData(
-                    senderCountry = baseParams.cityData.senderCountry,
-                    receiverCountry = baseParams.cityData.receiverCountry,
+                cityParams = CityParams(
+                    senderCountry = baseParams.cityParams.senderCountry,
+                    receiverCountry = baseParams.cityParams.receiverCountry,
                     senderCity = it.getString("sender_city")
-                        ?: baseParams.cityData.senderCity,
+                        ?: baseParams.cityParams.senderCity,
                     receiverCity = it.getString("receiver_city")
-                        ?: baseParams.cityData.receiverCity,
+                        ?: baseParams.cityParams.receiverCity,
                 )
             )
         } ?: baseParams
