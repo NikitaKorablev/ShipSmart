@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!--Package input params-->
-    <dimen name="inputParamTopMargin">5dp</dimen>
-    <dimen name="paramTopMargin">15dp</dimen>
-
-    <dimen name="packageParamsPadding">10dp</dimen>
-    <dimen name="packageParamsMargin">15dp</dimen>
-</resources>
