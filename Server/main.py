@@ -18,6 +18,7 @@ def get_delivery_cost():
             "status": "error",
             "message": "Invalid request parameters"
         }
+        logger.error(f"{400} : {response_data}")
         return jsonify(response_data), 400
 
     status, data = GetCDEKDeliveryCostAndTime.execute(params)
@@ -33,6 +34,7 @@ def get_delivery_cost():
             "status": "error",
             "message": data
         }
+        logger.error(f"{status} : {response_data}")
         return jsonify(response_data), status
 
 
