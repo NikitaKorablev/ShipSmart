@@ -4,6 +4,9 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from datetime import datetime
 import time
+from typing import Any
+import requests
+import json
 
 from scrapper.cdek.tools.wait import wait_for_page_load, wait_for_url_change
 from scrapper.cdek.tools.input import input_and_select_from_dropdown, input_dimension
@@ -11,7 +14,26 @@ from scrapper.cdek.tools.click import click_element
 from scrapper.cdek.tools.extract import extract_cost, extract_cost_new, extract_delivery_time
 from scrapper.cdek.request_object import CDEKRequestObject
 
+
+post_url = "https://www.cdek.ru/api-lkfl/estimateV2/"
+headers = {
+    'accept': 'application/json',
+    'accept-language': 'ru,en;q=0.9',
+    'priority': 'u=1, i',
+    'referer': 'https://www.cdek.ru/ru/',
+    'sec-ch-ua': '"Chromium";v="134", "Not:A-Brand";v="24", "YaBrowser";v="25.4", "Yowser";v="2.5"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Windows"',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'same-origin',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 YaBrowser/25.4.0.0 Safari/537.36',
+    'x-site-code': 'ru',
+    'x-user-lang': 'rus',
+}
+
 class GetCDEKDeliveryCostAndTime:
+
     @staticmethod
     def save_page_source(driver, prefix="page"):
         """Сохранение HTML-кода страницы в файл с временной меткой."""
@@ -24,9 +46,37 @@ class GetCDEKDeliveryCostAndTime:
         except Exception as e:
             print(f"Ошибка при сохранении страницы: {e}")
 
+    @staticmethod
+    def execute(params: CDEKRequestObject) -> tuple[int, str|list[dict[str, Any]]]:
+        payload = {
+            "payerType": "sender",
+            "currencyMark": "RUB",
+            "senderCityId": params.sender_city,
+            # "senderCityId": "01581370-81f3-4322-9a28-3418adfabd97",
+            "receiverCityId": params.receiver_city,
+            # "receiverCityId": "b7af1c1b-b82c-464d-b744-e12ce0ff5f98",
+            "packages": [
+                {
+                    "height": params.height,
+                    "width": params.width,
+                    "length": params.length,
+                    "weight": params.weight
+                }
+            ]
+        }
+
+        session = requests.Session()
+        response = session.post(post_url, json=payload, headers=headers)
+        status_code = response.status_code
+        if status_code == 200:
+            data = (json.loads(response.text)).get('data', [])
+        else:
+            data = response.text
+
+        return status_code, data
 
     @staticmethod
-    def execute(params: CDEKRequestObject) -> tuple[str, str]:
+    def _execute(params: CDEKRequestObject) -> tuple[str, str]:
         url = "https://www.cdek.ru/ru/"
         
         # Настройка headless-браузера

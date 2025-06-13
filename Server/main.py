@@ -19,14 +19,21 @@ async def get_delivery_cost():
         }
         return jsonify(response_data), 400
 
-    cost, time = GetCDEKDeliveryCostAndTime.execute(params)
-    response_data = {
-        "status": "success",
-        "message": "Request processed successfully",
-        "cost": cost,
-        "time": time
-    }
-    return jsonify(response_data), 200
+    status, data = GetCDEKDeliveryCostAndTime.execute(params)
+    if status == 200:
+        response_data = {
+            "status": "success",
+            "message": "Request processed successfully",
+            "data": data
+        }
+        return jsonify(response_data), 200
+    else:
+        response_data = {
+            "status": "error",
+            "message": data
+        }
+        return jsonify(response_data), status
+
 
 # Запуск Quart приложения
 if __name__ == '__main__':
