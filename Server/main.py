@@ -1,4 +1,5 @@
-from quart import Quart, jsonify, request
+# from quart import Quart, 
+from flask import Flask, jsonify, request
 
 from scrapper.cdek.request_object import CDEKRequestObject
 from scrapper.cdek.scrapper import GetCDEKDeliveryCostAndTime
@@ -6,11 +7,11 @@ from scrapper.cdek.scrapper import GetCDEKDeliveryCostAndTime
 from utils.logger_init import _logger
 
 
-app = Quart(__name__)
+app = Flask(__name__)
 logger = _logger(name=__name__)
 
 @app.route('/get_delivery_cost', methods=['GET'])
-async def get_delivery_cost():
+def get_delivery_cost():
     params = CDEKRequestObject(request.args)
     if not params.is_valid():
         response_data = {
@@ -35,6 +36,6 @@ async def get_delivery_cost():
         return jsonify(response_data), status
 
 
-# Запуск Quart приложения
+# Запуск Flask приложения
 if __name__ == '__main__':
     app.run(debug=True, port=8100, host="0.0.0.0")
