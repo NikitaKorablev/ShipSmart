@@ -2,8 +2,8 @@ from werkzeug.datastructures import MultiDict
 
 class CDEKRequestObject:
     def __init__(self, args: MultiDict[str, str]) -> None:
-        self.sender_city = args.get("sender", "")
-        self.receiver_city = args.get("receiver", "")
+        self.sender_city = args.get("senderCityId", "")
+        self.receiver_city = args.get("receiverCityId", "")
         self.length = int(args.get("length", 0))
         self.width = int(args.get("width", 0))
         self.height = int(args.get("height", 0))
