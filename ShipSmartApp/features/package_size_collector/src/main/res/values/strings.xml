@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Package Params-->
+    <string name="baseCityFrom_title">From</string>
+    <string name="baseCity_from">Nizhniy Novgorod</string>
+
+    <string name="baseCityWhere_title">Where</string>
+    <string name="baseCity_where">Moscow</string>
+
+    <string name="lengthTitle">Length, sm</string>
+    <string name="lengthValue">105</string>
+
+    <string name="weightTitle">Width, sm</string>
+    <string name="weightValue">20</string>
+
+    <string name="heightTitle">Height, sm</string>
+    <string name="heightValue">30</string>
+
+    <string name="continueButton">Calculate</string>
+
+</resources>
