@@ -14,45 +14,12 @@ import com.core.delivery_network.data.response_data.city_response_data.CityRespo
 import com.core.delivery_network.data.response_data.cost_response_data.DeliveryType
 import com.core.delivery_network.domain.delivery_services.CDEKDeliveryService
 import com.core.delivery_network.domain.repository.DeliveryRepository
-import java.util.UUID
-import okhttp3.OkHttpClient
-import okhttp3.Request
 import javax.inject.Inject
 
 class CDEKDeliveryRepositoryImpl @Inject constructor(
     private var deliveryService: CDEKDeliveryService
 ) : DeliveryRepository {
     override val company = CDEK()
-
-    private fun getSessionCookie(): String {
-        val client = OkHttpClient()
-        val request = Request.Builder()
-            .url(company.getCityUrl("Москва")) // URL для получения куки
-            .addHeader("Cache-Control", "no-cache")
-            .addHeader("content-type", "application/json")
-            .addHeader("Postman-Token", postmanToken)
-            .get()
-            .build()
-
-        val c = "spid=1749457415299_ce06125d698370a5b81d15f6e0682f08_pxerh4wre81n2qfq; spsc=1749457415299_be201039b498541f1920e87122feb38a_y9TzJJr9MiABUNI9HiCxEZm58xJzlUe5CWv8nGOFELAZ"
-        return c
-//        return try {
-//            val response = client.newCall(request).execute()
-//            val cookies = response.headers("Set-Cookie")
-//            if (cookies.isNotEmpty()) {
-//                cookies.joinToString("; ") { cookie ->
-//                    cookie.split(";")[0] // Берем только имя и значение
-//                }
-//            } else {
-//                c
-//            }
-//        } catch (e: Exception) {
-//            Log.e(TAG, "Ошибка получения куки: ${e.message}")
-//            c
-//        }
-    }
-
-    val postmanToken = UUID.randomUUID().toString()
 
     override suspend fun getCitiesData(packageParams: PackageParams): CityResponse {
         return try {
@@ -89,42 +56,7 @@ class CDEKDeliveryRepositoryImpl @Inject constructor(
         return try {
             val url = company.getCostUrl(packageParams)
 
-//            val requestBody = CDEKDeliveryRequest(
-//                payerType = "sender",
-//                currencyMark = "RUB",
-//                senderCityId = packageParams.cityParams.senderCity,
-//                receiverCityId = packageParams.cityParams.receiverCity,
-//                packages = listOf(RequestPackage(
-//                    height = packageParams.height.toInt(),
-//                    width = packageParams.width.toInt(),
-//                    length = packageParams.length.toInt(),
-//                    weight = 100
-//                ))
-//            )
-
-            val requestBody = CDEKDeliveryRequest(
-                payerType = "sender",
-                currencyMark = "RUB",
-                senderCityId = "b7af1c1b-b82c-464d-b744-e12ce0ff5f98",
-                receiverCityId = "01581370-81f3-4322-9a28-3418adfabd97",
-                packages = listOf(RequestPackage(
-                    height = 50,
-                    width = 100,
-                    length = 100,
-                    weight = 10
-                ))
-            )
-
-            val cookie = getSessionCookie()
-            val headers = mapOf(
-                "Cache-Control" to "no-cache",
-                "content-type" to "application/json",
-                "Postman-Token" to postmanToken,
-                "Cookie" to cookie,
-//                "Cookie" to "spid=1747842532123_f18dbf23da06a52611c4392a17e712d3_mao6ngb702e604ea; spsc=1747921580544_83ff4dd2d02fd4b664406b150deaf3b5_Gio1u.SqVbFiw5puB.DW3p2XQlrUBIFAZc9LQnxDg00Z"
-            )
-
-            val response = deliveryService.getCostData(url, headers, requestBody)
+            val response = deliveryService.getCostData(url)
             if (response.data.isEmpty())
                 DeliveryResponse.Error("Getting delivery cost exception: Cost not found")
             val delivery = getCheapestDelivery(response.data)
@@ -135,7 +67,7 @@ class CDEKDeliveryRepositoryImpl @Inject constructor(
             DeliveryResponse.Accept(
                 DeliveryData(
                     name = company.name,
-                    cost = formatCost(cost.toDouble()),
+                    cost = cost.toString(),
                     deliveryTime = deliveryTime.toString(),
                     img = company.imgResource
                 )
@@ -145,20 +77,11 @@ class CDEKDeliveryRepositoryImpl @Inject constructor(
         }
     }
 
-    private fun getCheapestDelivery(deliveryTypes: List<DeliveryType>): DeliveryType {
-        var delivery: DeliveryType = deliveryTypes[0]
-
-        for (i in 1..<deliveryTypes.size) {
-            if (deliveryTypes[i].minPrice < delivery.minPrice)
-                delivery = deliveryTypes[i]
+    private fun getCheapestDelivery(data: List<DeliveryType>): DeliveryType {
+        return data.minBy { it.minDays }.let { minDaysTariff ->
+            data.filter { it.minDays == minDaysTariff.minDays }
+                .minBy { it.minPrice }
         }
-
-        return delivery
-    }
-
-    @SuppressLint("DefaultLocale")
-    private fun formatCost(cost: Double): String {
-        return String.format("%.2f", cost / 100.0)
     }
 
     companion object {

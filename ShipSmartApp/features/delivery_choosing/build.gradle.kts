@@ -42,6 +42,10 @@ dependencies {
     implementation(projects.core.deliveryNetwork)
     implementation(projects.designSystem)
 
+    // okhttp
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+
     // Dagger
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)

@@ -2,5 +2,6 @@
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">boxberry.ru</domain>
+        <domain includeSubdomains="true">147.45.246.48</domain>
     </domain-config>
 </network-security-config>

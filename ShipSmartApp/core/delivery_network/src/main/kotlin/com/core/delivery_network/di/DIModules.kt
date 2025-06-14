@@ -8,6 +8,10 @@ import com.core.delivery_network.domain.repository.DeliveryRepository
 import com.core.delivery_network.domain.delivery_services.BoxberryDeliveryService
 import dagger.Module
 import dagger.Provides
+import okhttp3.Cookie
+import okhttp3.CookieJar
+import okhttp3.HttpUrl
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
@@ -38,7 +42,7 @@ class NetworkDeliveryModule {
     @Provides
     @Singleton
     fun provideCDEKDeliveryService(
-        @Named("CDEKBaseUrl") url: String
+        @Named("CDEKBaseUrl") url: String,
     ): CDEKDeliveryService {
         return Retrofit.Builder()
             .baseUrl(url)

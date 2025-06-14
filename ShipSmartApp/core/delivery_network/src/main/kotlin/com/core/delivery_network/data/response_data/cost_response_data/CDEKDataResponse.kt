@@ -4,18 +4,17 @@ import com.core.delivery_network.data.response_data.ApiResponse
 
 data class CDEKApiResponse(
     val data: List<DeliveryType>,
-    val currencyMark: String,
-    val isDeliveryWithoutWarehousePossible: Boolean,
-    val isInternationalOrder: Boolean
+    val message: String,
+    val status: String,
 ): ApiResponse
 
 data class DeliveryType(
-    val id: Int,
-    val placing: Int,
-    val minPrice: Int,
-    val minDays: Int,
-    val maxDays: Int,
     val description: String,
+    val id: Int,
+    val maxDays: Int,
+    val minDays: Int,
+    val minPrice: Int,
+    val placing: Int,
     val tariffs: List<Any>
 )
 
